@@ -1,11 +1,11 @@
 openapi: 3.1.0
 info:
   title: Kargonomi API
-  version: 0.1.0
+  version: 2.5.0
   description: Ortak API sözleşmesiyle uyumlu bağımsız geliştirici başvurusu. Belgelenmeyen hizmet alanları geriye uyumluluk için korunur. Belirsiz davranışlarda x-provider-ambiguity alanlarını inceleyin.
   license:
-    name: MIT
-    identifier: MIT
+    name: GNU General Public License v3.0
+    identifier: GPL-3.0-only
   contact:
     name: hamzadenizyilmaz ve beyzagul02
     url: https://github.com/hamzadenizyilmaz/Kargonomi-API
@@ -585,13 +585,13 @@ paths:
           $ref: "#/components/responses/RateLimited"
         "500":
           $ref: "#/components/responses/ProviderError"
-      x-provider-ambiguity: HTTP method inferred as POST from the provider request body example.
+      x-provider-ambiguity: HTTP yöntemi, sağlayıcının istek gövdesi örneğinden POST olarak çıkarılmıştır.
   /shipments/{id}/barcode:
     get:
       operationId: barcodes.get
       tags:
         - Barkod
-      summary: Gönderiyi getir barcode
+      summary: Gönderi barkodunu indir
       description: Base64 ile kodlanmış PDF barkod zarfını döndürür. İçerik hassas ikili veri olarak işlenmelidir.
       security:
         - bearerAuth: []
@@ -924,7 +924,7 @@ paths:
           $ref: "#/components/responses/RateLimited"
         "500":
           $ref: "#/components/responses/ProviderError"
-      x-provider-ambiguity: Path ID inferred from the provider example.
+      x-provider-ambiguity: Yol kimliği, sağlayıcının örneğinden çıkarılmıştır.
     delete:
       operationId: webhooks.delete
       tags:
@@ -945,7 +945,7 @@ paths:
           $ref: "#/components/responses/RateLimited"
         "500":
           $ref: "#/components/responses/ProviderError"
-      x-provider-ambiguity: Path ID inferred from the provider example.
+      x-provider-ambiguity: Yol kimliği, sağlayıcının örneğinden çıkarılmıştır.
 components:
   securitySchemes:
     bearerAuth:
@@ -975,7 +975,7 @@ components:
             success:
               summary: Başarılı yanıt
               value:
-                message: Resource not found
+                message: Kaynak bulunamadı
     ValidationError:
       description: İstek doğrulaması başarısız oldu.
       content:
@@ -989,7 +989,7 @@ components:
                 message: Doğrulama başarısız oldu
                 errors:
                   buyer_phone:
-                    - Must contain exactly 10 digits.
+                    - Tam olarak 10 rakam içermelidir.
     RateLimited:
       description: İstek sıklığı sınırı aşıldı.
       content:
@@ -1000,7 +1000,7 @@ components:
             success:
               summary: Başarılı yanıt
               value:
-                message: Too many requests
+                message: Çok fazla istek gönderildi
       headers:
         Retry-After:
           description: Güvenli isteğin yeniden gönderilmesinden önce beklenecek saniye.

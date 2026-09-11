@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling==1.32.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kargonomi-client"
+version = "2.5.0+enterprise"
+description = "Kargonomi API için tür güvenli eşzamanlı ve eşzamansız Python istemcisi"
+readme = "README.md"
+requires-python = ">=3.14"
+authors = [
+  { name = "Hamza Deniz Yılmaz" },
+  { name = "Beyza Gül" },
+]
+license = "GPL-3.0-only"
+dependencies = ["httpx==0.28.1"]
+
+[dependency-groups]
+dev = [
+  "build==1.6.1",
+  "mypy==2.3.1",
+  "pip-audit==2.10.1",
+  "ruff==0.16.7",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/kargonomi"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "ASYNC", "S"]
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+packages = ["kargonomi"]
+mypy_path = "src"

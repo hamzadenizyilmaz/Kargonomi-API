@@ -1,0 +1,88 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - v2.5.0-Enterprise
+  pull_request:
+    branches:
+      - main
+      - v2.5.0-Enterprise
+
+jobs:
+  openapi-postman:
+    name: OpenAPI ve Postman JSON dogrulama
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: OpenAPI JSON gecerlilik denetimi
+        run: npm run openapi:check
+      - name: Postman JSON gecerlilik denetimi
+        run: npm run postman:check
+
+  nodejs:
+    name: Node.js derleme ve dogrulama
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: NodeJS/package-lock.json
+      - name: Bagimliliklari yukle
+        run: npm ci --prefix NodeJS
+      - name: Kod bicimi ve tur denetimi
+        run: npm --prefix NodeJS run verify
+
+  dotnet:
+    name: ASP.NET Core derleme
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.x'
+      - name: Bagimliliklari geri yukle
+        run: dotnet restore ASP.net/KargonomiAsp.sln --locked-mode
+      - name: Derle
+        run: dotnet build ASP.net/KargonomiAsp.sln --no-restore --configuration Release
+
+  php:
+    name: PHP dogrulama
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+      - name: Composer bagimlilikları yukle
+        run: composer install --working-dir PHP --no-interaction --prefer-dist
+      - name: Composer semasi dogrula
+        run: composer --working-dir PHP validate --strict
+      - name: PHP statik analiz
+        run: composer --working-dir PHP check
+
+  python:
+    name: Python derleme ve dogrulama
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+          allow-prereleases: true
+      - name: uv kur
+        run: pip install uv
+      - name: Bagimliliklari senkronize et
+        run: uv sync --directory Python
+      - name: Kod bicimi denetimi (ruff)
+        run: uv run --directory Python ruff check .
+      - name: Tur denetimi (mypy)
+        run: uv run --directory Python mypy
+      - name: Paket olustur
+        run: uv build --directory Python
