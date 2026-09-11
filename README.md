@@ -218,10 +218,10 @@ Paket tanımları, güncel SPDX karşılığı olan `GPL-3.0-only` ifadesini kul
 
 ## Geliştiriciler ve marka bilgileri
 
-- [Hamza Deniz Yılmaz](https://github.com/hamzadenizyilmaz) — proje sahibi ve geliştirici
-- [Beyza Gül](https://github.com/beyzagul02) — geliştirici ve katkı sahibi
-- [Bilhost](https://www.bilhost.com/) — proje destekçisi
-- [Kargonomi](https://www.kargonomi.com.tr/) — entegre edilen hizmetin markası
+- [Hamza Deniz Yılmaz](https://github.com/hamzadenizyilmaz) Proje sahibi ve geliştirici
+- [Beyza Gül](https://github.com/beyzagul02) Geliştirici ve katkı sahibi
+- [Bilhost](https://www.bilhost.com/) Proje destekçisi
+- [Kargonomi](https://www.kargonomi.com.tr/) Entegre edilen hizmetin markası
 
 Bilhost ve Kargonomi adları ile logoları kendi hak sahiplerine aittir. Bu varlıkların depoda bulunması yalnızca destek ve entegrasyon ilişkisini açıklar; projeye resmî ürün niteliği kazandırmaz.
 
