@@ -2,7 +2,7 @@
   <PropertyGroup>
     <PackageId>Kargonomi.AspNet</PackageId>
     <Version>2.5.0-Enterprise</Version>
-    <Description>Kargonomi API için tür güvenli .NET 10 istemcisi ve ASP.NET Core bütünleştirmesi.</Description>
+    <Description>Kargonomi API için .NET 10 ve ASP.NET Core tabanlı sunucu entegrasyonu.</Description>
     <Authors>Hamza Deniz Yılmaz;Beyza Gül</Authors>
     <Company>Hamza Deniz Yılmaz ve Beyza Gül</Company>
     <RepositoryUrl>https://github.com/hamzadenizyilmaz/Kargonomi-API</RepositoryUrl>

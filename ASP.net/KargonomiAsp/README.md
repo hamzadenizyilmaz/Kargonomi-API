@@ -1,6 +1,6 @@
-# Kargonomi ASP.NET Core İstemcisi
+# Kargonomi ASP.NET Core Entegrasyonu
 
-Bu proje, Kargonomi API için .NET 10 ve ASP.NET Core tabanlı tür güvenli istemci kitaplığını, bağımlılık ekleme yapılandırmasını ve örnek Web API uygulamasını içerir. Ürün sürümü `2.5.0-Enterprise`, lisansı GPL-3.0'dır.
+Bu proje, Kargonomi API'yi .NET 10 ve ASP.NET Core tabanlı sunucu uygulamalarına bağlayan entegrasyon uygulamasını, bağımlılık ekleme yapılandırmasını ve örnek Web API yapısını içerir. Ürün sürümü `2.5.0-Enterprise`, lisansı GPL-3.0'dır.
 
 ## Kurulum ve derleme
 

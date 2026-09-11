@@ -19,7 +19,7 @@ Bu çalışma alanı Hamza Deniz Yılmaz ve Beyza Gül tarafından yönetilir, B
 - Veritabanı değişikliği gerektiğinde yalnızca ilgili MSSQL dosyasını güncelleyin. Entity Framework, SQLite, otomatik şema geçişi veya uygulama içi veritabanı oluşturma davranışı eklemeyin.
 - C# kaynaklarına kodun zaten anlattığı bilgileri tekrarlayan `///` açıklamaları eklemeyin. Kullanıcıya yönelik açıklamaları Markdown belgelerinde tutun.
 - `TODO`, `FIXME`, kullanılmayan sınıf, boş soyutlama veya geçici örnek kod bırakmayın.
-- Yeni bir uç nokta desteği ekleniyorsa OpenAPI belgesini, uç nokta kataloğunu ve etkilenen istemci kitaplıklarını birlikte güncelleyin.
+- Yeni bir uç nokta desteği ekleniyorsa OpenAPI belgesini, uç nokta kataloğunu ve etkilenen entegrasyon uygulamalarını birlikte güncelleyin.
 
 ## Yerel denetimler
 

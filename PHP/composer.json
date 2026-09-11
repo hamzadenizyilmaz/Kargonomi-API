@@ -1,6 +1,6 @@
 {
   "name": "kargonomi/client",
-  "description": "Kargonomi API için tür güvenli PHP 8.5 istemcisi",
+  "description": "Kargonomi API için PHP 8.5 tabanlı sunucu entegrasyonu",
   "version": "2.5.0+enterprise",
   "type": "library",
   "license": "GPL-3.0-only",

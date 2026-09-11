@@ -1,7 +1,7 @@
 {
   "name": "@kargonomi/client",
   "version": "2.5.0-Enterprise",
-  "description": "Kargonomi API için tür güvenli Node.js ve TypeScript istemcisi.",
+  "description": "Kargonomi API için Node.js ve TypeScript tabanlı sunucu entegrasyonu.",
   "type": "module",
   "sideEffects": false,
   "author": "Hamza Deniz Yılmaz ve Beyza Gül",

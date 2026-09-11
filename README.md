@@ -4,10 +4,10 @@
   <a href="https://www.kargonomi.com.tr/"><img src="assets/branding/kargonomi-logo.png" alt="Kargonomi" height="58"></a>
 </p>
 
-<h1 align="center">Kargonomi API SDK</h1>
+<h1 align="center">Kargonomi API Entegrasyon Altyapısı</h1>
 
 <p align="center">
-  Kargonomi API için ASP.NET Core, Node.js, PHP ve Python istemcileri
+  ASP.NET Core, Node.js, PHP ve Python tabanlı sunucu uygulamaları için çok dilli API entegrasyonu
 </p>
 
 <p align="center">
@@ -15,18 +15,18 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/lisans-GPL--3.0-blue" alt="GPL-3.0 lisansı"></a>
 </p>
 
-Bu depo, aynı Kargonomi API işlemlerini dört farklı yazılım ortamından kullanmak için hazırlanan istemci kitaplıklarını içerir. Gönderi, fiyatlandırma, depo, konum, barkod, hesap ve webhook işlemleri her istemcide benzer bir arayüzle sunulur.
+Bu depo, Kargonomi API işlemlerini ASP.NET Core, Node.js, PHP ve Python tabanlı sunucu uygulamalarında kullanmak için geliştirilen dört ayrı entegrasyon uygulamasını bir arada tutar. Her uygulama; kimlik doğrulama, HTTP istekleri, yanıt modelleri, hata yönetimi ve webhook doğrulaması gibi işlemleri kendi çalışma ortamına uygun biçimde yürütür.
 
-Proje Hamza Deniz Yılmaz ve Beyza Gül tarafından geliştirilmektedir. Kargonomi'nin resmî SDK'sı değildir; API'nin güncel davranışı ve kullanım koşulları için Kargonomi belgeleri esas alınmalıdır.
+Proje Hamza Deniz Yılmaz ve Beyza Gül tarafından geliştirilmektedir. Kargonomi'nin resmî ürünü değildir; API'nin güncel davranışı ve kullanım koşulları için Kargonomi belgeleri esas alınmalıdır.
 
 ## Depo yapısı
 
 | Dizin | İçerik |
 |---|---|
-| `ASP.net/` | .NET 10 istemcisi ve ASP.NET Core bütünleştirmesi |
-| `NodeJS/` | Node.js 24 ve TypeScript istemcisi |
-| `PHP/` | PHP 8.5 istemcisi |
-| `Python/` | Eşzamanlı ve eşzamansız Python 3.14 istemcisi |
+| `ASP.net/` | .NET 10 ve ASP.NET Core ile geliştirilen API entegrasyon uygulaması |
+| `NodeJS/` | Node.js 24 ve TypeScript ile geliştirilen API entegrasyon uygulaması |
+| `PHP/` | PHP 8.5 ile geliştirilen API entegrasyon uygulaması |
+| `Python/` | Python 3.14 ile geliştirilen eşzamanlı ve eşzamansız API entegrasyon uygulaması |
 | `Swagger/` | OpenAPI 3.1 tanımları, şemalar ve örnek yanıtlar |
 | `Postman/` | Postman koleksiyonu ve ortam dosyası |
 
@@ -46,9 +46,9 @@ Uç noktaların tamamı [`Swagger/Contracts/endpoint-catalog.json`](Swagger/Cont
 
 ## Gereksinimler
 
-Yalnızca kullanacağınız istemcinin araçlarını kurmanız yeterlidir.
+Yalnızca projenizde kullanacağınız yazılım ortamının araçlarını kurmanız yeterlidir.
 
-| İstemci | Gereksinim |
+| Platform | Gereksinim |
 |---|---|
 | ASP.NET Core | .NET SDK 10 veya üzeri |
 | Node.js | Node.js 24 ve npm 12 veya üzeri |
@@ -58,9 +58,9 @@ Yalnızca kullanacağınız istemcinin araçlarını kurmanız yeterlidir.
 
 ## Yapılandırma
 
-Her istemci temel API adresini kendi `appsettings.json` dosyasından okur:
+Her entegrasyon uygulaması, temel API adresini kendi `appsettings.json` dosyasından okur:
 
-| İstemci | Yapılandırma dosyası |
+| Platform | Yapılandırma dosyası |
 |---|---|
 | ASP.NET Core | `ASP.net/KargonomiAsp/appsettings.json` |
 | Node.js | `NodeJS/appsettings.json` |
@@ -97,7 +97,7 @@ dotnet restore ASP.net/KargonomiAsp.sln --locked-mode
 dotnet build ASP.net/KargonomiAsp.sln --no-restore
 ```
 
-İstemciyi bağımlılık enjeksiyonu konteynerine kaydedin:
+ASP.NET Core entegrasyonunu bağımlılık enjeksiyonu konteynerine kaydedin:
 
 ```csharp
 builder.Services.AddKargonomi(options =>
@@ -154,13 +154,13 @@ with KargonomiClient(os.environ["KARGONOMI_API_TOKEN"]) as client:
     print(shipments.total)
 ```
 
-Python istemcisi, aynı kaynaklar için `AsyncKargonomiClient` sınıfını da sağlar.
+Python uygulaması, aynı işlemlerin eşzamansız yürütülmesi için `AsyncKargonomiClient` sınıfını da sağlar.
 
 ## MSSQL şemaları
 
-İstemciler veritabanı oluşturmaz ve şema değişikliği çalıştırmaz. Gerekli T-SQL dosyaları bir SQL Server yöneticisi tarafından elle uygulanmalıdır.
+Entegrasyon uygulamaları veritabanı oluşturmaz ve şema değişikliği çalıştırmaz. Gerekli T-SQL dosyaları bir SQL Server yöneticisi tarafından elle uygulanmalıdır.
 
-| İstemci | Kurulum dosyası | Veritabanı |
+| Platform | Kurulum dosyası | Veritabanı |
 |---|---|---|
 | ASP.NET Core | [`Database_Asp.sql`](ASP.net/KargonomiAsp/Database/Database_Asp.sql) | `Kargonomi_Asp` |
 | Node.js | [`Database_JS.sql`](NodeJS/Database/Database_JS.sql) | `Kargonomi_JS` |
@@ -179,7 +179,7 @@ Depodaki Postman dosyalarında geçerli API anahtarı veya müşteri verisi bulu
 
 ## Doğrulama
 
-Bir istemcide değişiklik yaptıktan sonra ilgili komutları çalıştırın:
+Bir entegrasyon uygulamasında değişiklik yaptıktan sonra ilgili komutları çalıştırın:
 
 ```powershell
 # Node.js
@@ -210,7 +210,7 @@ Bu kontroller gerçek Kargonomi hesabına istek göndermez.
 
 - API anahtarlarını, webhook gizli anahtarlarını ve müşteri verilerini Git geçmişine eklemeyin.
 - Webhook imzasını JSON ayrıştırılmadan önce, alınan ham istek gövdesi üzerinden doğrulayın.
-- İstemciler yönlendirmeleri izlemez ve yalnız HTTPS temel adreslerini kabul eder.
+- Entegrasyon uygulamaları yönlendirmeleri izlemez ve yalnız HTTPS temel adreslerini kabul eder.
 - Otomatik yeniden deneme yalnız güvenli `GET` isteklerinde uygulanır.
 
 Bir güvenlik açığı bulduysanız herkese açık issue oluşturmadan önce [SECURITY.md](SECURITY.md) içindeki bildirim yolunu kullanın.

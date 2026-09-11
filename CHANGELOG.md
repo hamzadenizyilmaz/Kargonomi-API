@@ -6,7 +6,7 @@ Bu belge, kullanıcıları ve geliştiricileri etkileyen önemli teknik değişi
 
 ### Eklenenler
 
-- ASP.NET Core, Node.js, PHP ve Python için ortak API sözleşmesine bağlı istemci kitaplıkları eklendi.
+- ASP.NET Core, Node.js, PHP ve Python için ortak API sözleşmesine bağlı sunucu taraflı entegrasyon uygulamaları eklendi.
 - Her bileşen için `appsettings.json` tabanlı merkezi API adresi yapılandırması eklendi.
 - Node.js, PHP ve ASP.NET Core için sırasıyla `Database_JS.sql`, `Database_PHP.sql` ve `Database_Asp.sql` adlı MSSQL kurulum dosyaları eklendi.
 - Webhook tekrarlarını önleyen benzersiz anahtar, JSON geçerlilik denetimi, UTC denetim alanları ve API istek kayıtları için MSSQL şemaları eklendi.
