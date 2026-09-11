@@ -1,0 +1,39 @@
+# Secrets and local configuration
+!.env.example
+*.credentials
+*.secret
+
+# .NET
+.vs/
+**/bin/
+**/obj/
+artifacts/
+
+# Node / Electron
+node_modules/
+.tools/
+dist/
+out/
+*.log
+*.tgz
+
+# PHP
+vendor/
+.php-cs-fixer.cache
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Desktop runtime data
+logs/
+
+# IDE and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

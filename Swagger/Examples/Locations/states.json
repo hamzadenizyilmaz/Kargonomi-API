@@ -1,0 +1,7 @@
+{
+  "data": [
+    { "id": 34, "name": "İSTANBUL" },
+    { "id": 6, "name": "ANKARA" }
+  ],
+  "_fixture_note": "Veri biçimi teknik belgeden türetilmiştir; yanıt zarfı doğrulanmamıştır."
+}

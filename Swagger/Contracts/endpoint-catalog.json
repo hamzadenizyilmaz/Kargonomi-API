@@ -1,0 +1,26 @@
+{
+  "$schema": "../Schemas/endpoint-catalog.schema.json",
+  "baseUrl": "https://app.kargonomi.com.tr/api/v1",
+  "verifiedOn": "2026-09-11",
+  "endpoints": [
+    { "operation": "shipments.list", "method": "GET", "path": "/shipments", "body": "none", "safeToRetry": true },
+    { "operation": "shipments.get", "method": "GET", "path": "/shipments/{id}", "body": "none", "safeToRetry": true },
+    { "operation": "shipments.create", "method": "POST", "path": "/shipments", "body": "json", "safeToRetry": false },
+    { "operation": "shipments.update", "method": "PUT", "path": "/shipments/{id}", "body": "json", "safeToRetry": false },
+    { "operation": "shipments.patch", "method": "PATCH", "path": "/shipments/{id}", "body": "json", "safeToRetry": false },
+    { "operation": "shipments.delete", "method": "DELETE", "path": "/shipments/{id}", "body": "none", "safeToRetry": false },
+    { "operation": "pricing.compare", "method": "GET", "path": "/shipment-price-comparison/{id}", "body": "none", "safeToRetry": true },
+    { "operation": "pricing.confirm", "method": "POST", "path": "/confirm-shipping-price", "body": "multipart", "safeToRetry": false },
+    { "operation": "shipments.cancel", "method": "POST", "path": "/shipments/cancel", "body": "json", "safeToRetry": false },
+    { "operation": "warehouses.create", "method": "POST", "path": "/warehouses", "body": "json", "safeToRetry": false, "ambiguous": true },
+    { "operation": "barcodes.get", "method": "GET", "path": "/shipments/{id}/barcode", "body": "none", "safeToRetry": true },
+    { "operation": "account.credit", "method": "GET", "path": "/user/credit", "body": "none", "safeToRetry": true },
+    { "operation": "locations.states", "method": "GET", "path": "/states/{countryId?}", "body": "none", "safeToRetry": true },
+    { "operation": "locations.cities", "method": "GET", "path": "/cities/{stateId}", "body": "none", "safeToRetry": true },
+    { "operation": "webhooks.list", "method": "GET", "path": "/webhooks", "body": "none", "safeToRetry": true },
+    { "operation": "webhooks.get", "method": "GET", "path": "/webhooks/{id}", "body": "none", "safeToRetry": true },
+    { "operation": "webhooks.create", "method": "POST", "path": "/webhooks", "body": "json", "safeToRetry": false },
+    { "operation": "webhooks.update", "method": "PUT", "path": "/webhooks/{id}", "body": "json", "safeToRetry": false, "ambiguous": true },
+    { "operation": "webhooks.delete", "method": "DELETE", "path": "/webhooks/{id}", "body": "none", "safeToRetry": false, "ambiguous": true }
+  ]
+}

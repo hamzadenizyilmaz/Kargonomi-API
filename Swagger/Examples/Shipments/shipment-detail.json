@@ -1,0 +1,69 @@
+{
+  "id": 1001,
+  "type": "shipment",
+  "shipping_webservice_order_id": null,
+  "shipping_webservice_barcode": null,
+  "shipping_webservice_tracking_code": null,
+  "shipping_provider_name": null,
+  "shipping_provider_slug": null,
+  "barcode_of_order_id": null,
+  "status": "draft",
+  "status_label": "Taslak",
+  "shipping_webservice_created_at": null,
+  "ecommerce_provider_order_no": "TEST-1001",
+  "ecommerce_provider": "test",
+  "package_count": 1,
+  "estimated_price": null,
+  "real_price": null,
+  "extra_shipping_price": "0.0000",
+  "buyer_name": "Örnek Kullanıcı",
+  "delivery_date_to_shipment_office": null,
+  "shipping_provider_customer_delivery_date": null,
+  "created_at": "2026-09-11T10:15:30.000000+03:00",
+  "updated_at": "2026-09-11T10:16:00.000000+03:00",
+  "sender": {
+    "sender_name": "Örnek Gönderici",
+    "sender_email": "gonderici@example.com",
+    "sender_phone": "5550000000",
+    "sender_phone2": null,
+    "sender_tax_number": "00000000000",
+    "sender_tax_place": "Örnek Vergi Dairesi",
+    "sender_address": "Örnek Mahallesi Örnek Sokak No 1",
+    "sender_state": "İSTANBUL",
+    "sender_city": "ÜSKÜDAR"
+  },
+  "buyer": {
+    "buyer_name": "Örnek Kullanıcı",
+    "buyer_email": "test@example.com",
+    "buyer_phone": "0555000000",
+    "buyer_phone2": null,
+    "buyer_tax_number": null,
+    "buyer_tax_place": null,
+    "buyer_address": "Örnek Mahallesi Test Sokak No 2",
+    "buyer_state": "İSTANBUL",
+    "buyer_city": "AVCILAR"
+  },
+  "pricing": {
+    "package_count": 1,
+    "estimated_price": null,
+    "real_price": null,
+    "extra_shipping_price": "0.0000",
+    "price_diff": null
+  },
+  "warehouse": {
+    "id": 2001,
+    "name": "Örnek Depo",
+    "is_main": 1,
+    "contact_name": "Örnek Yetkili",
+    "contact_phone": "5550000001",
+    "state": "İstanbul",
+    "city": "Üsküdar",
+    "address": "Örnek Mahallesi Depo Sokak No 3",
+    "phone": null,
+    "tax_number": "00000000001",
+    "tax_place": "Örnek Vergi Dairesi"
+  },
+  "shipment_packages": [
+    { "desi": "1", "barcode": "TEST1001_1", "content": "Örnek İçerik ĞÜŞİÖÇ", "real_desi": null }
+  ]
+}

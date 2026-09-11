@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <PackageId>Kargonomi.AspNet</PackageId>
+    <Version>2.5.0-Enterprise</Version>
+    <Description>Kargonomi API için tür güvenli .NET 10 istemcisi ve ASP.NET Core bütünleştirmesi.</Description>
+    <Authors>Hamza Deniz Yılmaz;Beyza Gül</Authors>
+    <Company>Hamza Deniz Yılmaz ve Beyza Gül</Company>
+    <RepositoryUrl>https://github.com/hamzadenizyilmaz/Kargonomi-API</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/hamzadenizyilmaz/Kargonomi-API</PackageProjectUrl>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.10.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include="Database\Database_Asp.sql" Pack="true" PackagePath="Database\" />
+  </ItemGroup>
+</Project>

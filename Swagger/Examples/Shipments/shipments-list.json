@@ -1,0 +1,49 @@
+{
+  "data": [
+    {
+      "id": 1001,
+      "type": "shipment",
+      "shipping_webservice_order_id": null,
+      "shipping_webservice_barcode": null,
+      "shipping_webservice_tracking_code": null,
+      "shipping_provider_name": null,
+      "shipping_provider_slug": null,
+      "barcode_of_order_id": null,
+      "status": "draft",
+      "status_label": "Taslak",
+      "shipping_webservice_created_at": null,
+      "ecommerce_provider_order_no": "TEST-1001",
+      "ecommerce_provider": "test",
+      "package_count": 1,
+      "estimated_price": null,
+      "real_price": null,
+      "extra_shipping_price": "0.0000",
+      "buyer_name": "Örnek Kullanıcı",
+      "delivery_date_to_shipment_office": null,
+      "shipping_provider_customer_delivery_date": null,
+      "created_at": "2026-09-11T10:15:30.000000+03:00",
+      "updated_at": "2026-09-11T10:16:00.000000+03:00",
+      "sender": null,
+      "buyer": null,
+      "pricing": null,
+      "warehouse": null,
+      "shipment_packages": []
+    }
+  ],
+  "links": {
+    "first": "https://app.kargonomi.com.tr/api/v1/shipments?page=1",
+    "last": "https://app.kargonomi.com.tr/api/v1/shipments?page=1",
+    "prev": null,
+    "next": null
+  },
+  "meta": {
+    "current_page": 1,
+    "from": 1,
+    "last_page": 1,
+    "links": [],
+    "path": "https://app.kargonomi.com.tr/api/v1/shipments",
+    "per_page": 50,
+    "to": 1,
+    "total": 1
+  }
+}

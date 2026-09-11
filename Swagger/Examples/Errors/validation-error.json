@@ -1,0 +1,7 @@
+{
+  "message": "Gönderi bilgileri doğrulanamadı.",
+  "errors": {
+    "shipment.buyer_name": ["En az iki kelime olmalıdır."],
+    "shipment.packages.0.desi": ["Sıfırdan büyük olmalıdır."]
+  }
+}

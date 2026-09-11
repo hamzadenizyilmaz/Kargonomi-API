@@ -1,0 +1,6 @@
+@KargonomiAsp_HostAddress = https://localhost:7241
+
+GET {{KargonomiAsp_HostAddress}}/api/system/status
+Accept: application/json
+
+###

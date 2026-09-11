@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/kargonomi/endpoint-catalog.schema.json",
+  "type": "object",
+  "required": ["baseUrl", "verifiedOn", "endpoints"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "baseUrl": { "const": "https://app.kargonomi.com.tr/api/v1" },
+    "verifiedOn": { "type": "string", "format": "date" },
+    "endpoints": {
+      "type": "array",
+      "minItems": 19,
+      "items": {
+        "type": "object",
+        "required": ["operation", "method", "path", "body", "safeToRetry"],
+        "additionalProperties": false,
+        "properties": {
+          "operation": { "type": "string", "pattern": "^[a-z]+\\.[a-z]+$" },
+          "method": { "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"] },
+          "path": { "type": "string", "pattern": "^/" },
+          "body": { "enum": ["none", "json", "multipart"] },
+          "safeToRetry": { "type": "boolean" },
+          "ambiguous": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

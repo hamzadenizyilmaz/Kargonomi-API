@@ -1,0 +1,2567 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Kargonomi API",
+    "version": "0.1.0",
+    "description": "Ortak API sözleşmesiyle uyumlu bağımsız geliştirici başvurusu. Belgelenmeyen hizmet alanları geriye uyumluluk için korunur. Belirsiz davranışlarda x-provider-ambiguity alanlarını inceleyin.",
+    "license": {
+      "name": "MIT",
+      "identifier": "MIT"
+    },
+    "contact": {
+      "name": "hamzadenizyilmaz ve beyzagul02",
+      "url": "https://github.com/hamzadenizyilmaz/Kargonomi-API"
+    }
+  },
+  "externalDocs": {
+    "description": "Kargonomi resmî API belgeleri",
+    "url": "https://www.kargonomi.com.tr/help/api-dokumantasyonu/kargonomi-api/"
+  },
+  "servers": [
+    {
+      "url": "https://app.kargonomi.com.tr/api/v1",
+      "description": "Kargonomi API"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Gönderiler",
+      "description": "Gönderi yaşam döngüsü işlemleri."
+    },
+    {
+      "name": "Fiyatlandırma",
+      "description": "Kargo firması karşılaştırma ve seçim işlemleri."
+    },
+    {
+      "name": "Depolar",
+      "description": "Gönderici deposu yönetimi."
+    },
+    {
+      "name": "Barkod",
+      "description": "Gönderi barkod belgeleri."
+    },
+    {
+      "name": "Hesap",
+      "description": "Hesap bakiyesi."
+    },
+    {
+      "name": "Konumlar",
+      "description": "Ülke, il ve ilçe başvuru verileri."
+    },
+    {
+      "name": "Webhook Abonelikleri",
+      "description": "Webhook aboneliği yönetimi."
+    }
+  ],
+  "paths": {
+    "/shipments": {
+      "get": {
+        "operationId": "shipments.list",
+        "tags": [
+          "Gönderiler"
+        ],
+        "summary": "Gönderileri listele",
+        "description": "Sayfalandırılmış gönderi listesini döndürür. Güvenli GET istekleri sınırlı gecikmeyle yeniden gönderilebilir.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Birden başlayan sayfa numarası.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sayfalandırılmış gönderiler.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShipmentPage"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "data": [
+                        {
+                          "id": 1001,
+                          "type": "shipment",
+                          "shipping_webservice_order_id": null,
+                          "shipping_webservice_barcode": null,
+                          "shipping_webservice_tracking_code": null,
+                          "shipping_provider_name": null,
+                          "shipping_provider_slug": null,
+                          "barcode_of_order_id": null,
+                          "status": "draft",
+                          "status_label": "Taslak",
+                          "shipping_webservice_created_at": null,
+                          "ecommerce_provider_order_no": "TEST-1001",
+                          "ecommerce_provider": "test",
+                          "package_count": 1,
+                          "estimated_price": null,
+                          "real_price": null,
+                          "extra_shipping_price": "0.0000",
+                          "buyer_name": "Örnek Kullanıcı",
+                          "delivery_date_to_shipment_office": null,
+                          "shipping_provider_customer_delivery_date": null,
+                          "created_at": "2026-09-11T10:15:30.000000+03:00",
+                          "updated_at": "2026-09-11T10:16:00.000000+03:00",
+                          "sender": null,
+                          "buyer": null,
+                          "pricing": null,
+                          "warehouse": null,
+                          "shipment_packages": []
+                        }
+                      ],
+                      "links": {
+                        "first": "https://app.kargonomi.com.tr/api/v1/shipments?page=1",
+                        "last": "https://app.kargonomi.com.tr/api/v1/shipments?page=1",
+                        "prev": null,
+                        "next": null
+                      },
+                      "meta": {
+                        "current_page": 1,
+                        "from": 1,
+                        "last_page": 1,
+                        "links": [],
+                        "path": "https://app.kargonomi.com.tr/api/v1/shipments",
+                        "per_page": 50,
+                        "to": 1,
+                        "total": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      },
+      "post": {
+        "operationId": "shipments.create",
+        "tags": [
+          "Gönderiler"
+        ],
+        "summary": "Gönderi oluştur",
+        "description": "Gönderi oluşturur. Sonuç belirsiz kalabileceği için istek otomatik olarak yeniden gönderilmez.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Gönderi verileri. warehouse_id veya eksiksiz elle girilen gönderici alanlarından yalnızca birini kullanın.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShipmentEnvelope"
+              },
+              "examples": {
+                "request": {
+                  "summary": "Kişisel bilgilerden arındırılmış istek",
+                  "value": {
+                    "shipment": {
+                      "warehouse_id": 2001,
+                      "buyer_name": "Örnek Kullanıcı",
+                      "buyer_email": "test@example.com",
+                      "buyer_tax_number": "",
+                      "buyer_tax_place": "",
+                      "buyer_phone": "0555000000",
+                      "buyer_address": "Örnek Mahallesi Test Sokak No 2",
+                      "buyer_state_id": 34,
+                      "buyer_city_id": 828,
+                      "packages": [
+                        {
+                          "content": "Örnek İçerik",
+                          "barcode": "",
+                          "desi": "1.5"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Gönderi oluşturuldu.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Shipment"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "id": 1001,
+                      "type": "shipment",
+                      "shipping_webservice_order_id": null,
+                      "shipping_webservice_barcode": null,
+                      "shipping_webservice_tracking_code": null,
+                      "shipping_provider_name": null,
+                      "shipping_provider_slug": null,
+                      "barcode_of_order_id": null,
+                      "status": "draft",
+                      "status_label": "Taslak",
+                      "shipping_webservice_created_at": null,
+                      "ecommerce_provider_order_no": "TEST-1001",
+                      "ecommerce_provider": "test",
+                      "package_count": 1,
+                      "estimated_price": null,
+                      "real_price": null,
+                      "extra_shipping_price": "0.0000",
+                      "buyer_name": "Örnek Kullanıcı",
+                      "delivery_date_to_shipment_office": null,
+                      "shipping_provider_customer_delivery_date": null,
+                      "created_at": "2026-09-11T10:15:30.000000+03:00",
+                      "updated_at": "2026-09-11T10:16:00.000000+03:00",
+                      "sender": {
+                        "sender_name": "Örnek Gönderici",
+                        "sender_email": "gonderici@example.com",
+                        "sender_phone": "5550000000",
+                        "sender_phone2": null,
+                        "sender_tax_number": "00000000000",
+                        "sender_tax_place": "Örnek Vergi Dairesi",
+                        "sender_address": "Örnek Mahallesi Örnek Sokak No 1",
+                        "sender_state": "İSTANBUL",
+                        "sender_city": "ÜSKÜDAR"
+                      },
+                      "buyer": {
+                        "buyer_name": "Örnek Kullanıcı",
+                        "buyer_email": "test@example.com",
+                        "buyer_phone": "0555000000",
+                        "buyer_phone2": null,
+                        "buyer_tax_number": null,
+                        "buyer_tax_place": null,
+                        "buyer_address": "Örnek Mahallesi Test Sokak No 2",
+                        "buyer_state": "İSTANBUL",
+                        "buyer_city": "AVCILAR"
+                      },
+                      "pricing": {
+                        "package_count": 1,
+                        "estimated_price": null,
+                        "real_price": null,
+                        "extra_shipping_price": "0.0000",
+                        "price_diff": null
+                      },
+                      "warehouse": {
+                        "id": 2001,
+                        "name": "Örnek Depo",
+                        "is_main": 1,
+                        "contact_name": "Örnek Yetkili",
+                        "contact_phone": "5550000001",
+                        "state": "İstanbul",
+                        "city": "Üsküdar",
+                        "address": "Örnek Mahallesi Depo Sokak No 3",
+                        "phone": null,
+                        "tax_number": "00000000001",
+                        "tax_place": "Örnek Vergi Dairesi"
+                      },
+                      "shipment_packages": [
+                        {
+                          "desi": "1",
+                          "barcode": "TEST1001_1",
+                          "content": "Örnek İçerik ĞÜŞİÖÇ",
+                          "real_desi": null
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      }
+    },
+    "/shipments/{id}": {
+      "get": {
+        "operationId": "shipments.get",
+        "tags": [
+          "Gönderiler"
+        ],
+        "summary": "Gönderiyi getir",
+        "description": "Kimliğe göre tek bir gönderi döndürür.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Sıfırdan büyük gönderi kimliği.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Gönderi ayrıntısı.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Shipment"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "id": 1001,
+                      "type": "shipment",
+                      "shipping_webservice_order_id": null,
+                      "shipping_webservice_barcode": null,
+                      "shipping_webservice_tracking_code": null,
+                      "shipping_provider_name": null,
+                      "shipping_provider_slug": null,
+                      "barcode_of_order_id": null,
+                      "status": "draft",
+                      "status_label": "Taslak",
+                      "shipping_webservice_created_at": null,
+                      "ecommerce_provider_order_no": "TEST-1001",
+                      "ecommerce_provider": "test",
+                      "package_count": 1,
+                      "estimated_price": null,
+                      "real_price": null,
+                      "extra_shipping_price": "0.0000",
+                      "buyer_name": "Örnek Kullanıcı",
+                      "delivery_date_to_shipment_office": null,
+                      "shipping_provider_customer_delivery_date": null,
+                      "created_at": "2026-09-11T10:15:30.000000+03:00",
+                      "updated_at": "2026-09-11T10:16:00.000000+03:00",
+                      "sender": {
+                        "sender_name": "Örnek Gönderici",
+                        "sender_email": "gonderici@example.com",
+                        "sender_phone": "5550000000",
+                        "sender_phone2": null,
+                        "sender_tax_number": "00000000000",
+                        "sender_tax_place": "Örnek Vergi Dairesi",
+                        "sender_address": "Örnek Mahallesi Örnek Sokak No 1",
+                        "sender_state": "İSTANBUL",
+                        "sender_city": "ÜSKÜDAR"
+                      },
+                      "buyer": {
+                        "buyer_name": "Örnek Kullanıcı",
+                        "buyer_email": "test@example.com",
+                        "buyer_phone": "0555000000",
+                        "buyer_phone2": null,
+                        "buyer_tax_number": null,
+                        "buyer_tax_place": null,
+                        "buyer_address": "Örnek Mahallesi Test Sokak No 2",
+                        "buyer_state": "İSTANBUL",
+                        "buyer_city": "AVCILAR"
+                      },
+                      "pricing": {
+                        "package_count": 1,
+                        "estimated_price": null,
+                        "real_price": null,
+                        "extra_shipping_price": "0.0000",
+                        "price_diff": null
+                      },
+                      "warehouse": {
+                        "id": 2001,
+                        "name": "Örnek Depo",
+                        "is_main": 1,
+                        "contact_name": "Örnek Yetkili",
+                        "contact_phone": "5550000001",
+                        "state": "İstanbul",
+                        "city": "Üsküdar",
+                        "address": "Örnek Mahallesi Depo Sokak No 3",
+                        "phone": null,
+                        "tax_number": "00000000001",
+                        "tax_place": "Örnek Vergi Dairesi"
+                      },
+                      "shipment_packages": [
+                        {
+                          "desi": "1",
+                          "barcode": "TEST1001_1",
+                          "content": "Örnek İçerik ĞÜŞİÖÇ",
+                          "real_desi": null
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      },
+      "put": {
+        "operationId": "shipments.update",
+        "tags": [
+          "Gönderiler"
+        ],
+        "summary": "Gönderiyi tam güncelle",
+        "description": "Düzenlenebilir gönderi alanlarını bütünüyle değiştirir. Veri değiştiren istekler otomatik olarak yeniden gönderilmez.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Sıfırdan büyük gönderi kimliği.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Düzenlenebilir gönderinin eksiksiz gösterimi.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShipmentEnvelope"
+              },
+              "examples": {
+                "request": {
+                  "summary": "Kişisel bilgilerden arındırılmış istek",
+                  "value": {
+                    "shipment": {
+                      "warehouse_id": 2001,
+                      "buyer_name": "Örnek Kullanıcı",
+                      "buyer_email": "test@example.com",
+                      "buyer_tax_number": "",
+                      "buyer_tax_place": "",
+                      "buyer_phone": "0555000000",
+                      "buyer_address": "Örnek Mahallesi Test Sokak No 2",
+                      "buyer_state_id": 34,
+                      "buyer_city_id": 828,
+                      "packages": [
+                        {
+                          "content": "Örnek İçerik",
+                          "barcode": "",
+                          "desi": "1.5"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Gönderi güncellendi.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Shipment"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "id": 1001,
+                      "type": "shipment",
+                      "shipping_webservice_order_id": null,
+                      "shipping_webservice_barcode": null,
+                      "shipping_webservice_tracking_code": null,
+                      "shipping_provider_name": null,
+                      "shipping_provider_slug": null,
+                      "barcode_of_order_id": null,
+                      "status": "draft",
+                      "status_label": "Taslak",
+                      "shipping_webservice_created_at": null,
+                      "ecommerce_provider_order_no": "TEST-1001",
+                      "ecommerce_provider": "test",
+                      "package_count": 1,
+                      "estimated_price": null,
+                      "real_price": null,
+                      "extra_shipping_price": "0.0000",
+                      "buyer_name": "Örnek Kullanıcı",
+                      "delivery_date_to_shipment_office": null,
+                      "shipping_provider_customer_delivery_date": null,
+                      "created_at": "2026-09-11T10:15:30.000000+03:00",
+                      "updated_at": "2026-09-11T10:16:00.000000+03:00",
+                      "sender": {
+                        "sender_name": "Örnek Gönderici",
+                        "sender_email": "gonderici@example.com",
+                        "sender_phone": "5550000000",
+                        "sender_phone2": null,
+                        "sender_tax_number": "00000000000",
+                        "sender_tax_place": "Örnek Vergi Dairesi",
+                        "sender_address": "Örnek Mahallesi Örnek Sokak No 1",
+                        "sender_state": "İSTANBUL",
+                        "sender_city": "ÜSKÜDAR"
+                      },
+                      "buyer": {
+                        "buyer_name": "Örnek Kullanıcı",
+                        "buyer_email": "test@example.com",
+                        "buyer_phone": "0555000000",
+                        "buyer_phone2": null,
+                        "buyer_tax_number": null,
+                        "buyer_tax_place": null,
+                        "buyer_address": "Örnek Mahallesi Test Sokak No 2",
+                        "buyer_state": "İSTANBUL",
+                        "buyer_city": "AVCILAR"
+                      },
+                      "pricing": {
+                        "package_count": 1,
+                        "estimated_price": null,
+                        "real_price": null,
+                        "extra_shipping_price": "0.0000",
+                        "price_diff": null
+                      },
+                      "warehouse": {
+                        "id": 2001,
+                        "name": "Örnek Depo",
+                        "is_main": 1,
+                        "contact_name": "Örnek Yetkili",
+                        "contact_phone": "5550000001",
+                        "state": "İstanbul",
+                        "city": "Üsküdar",
+                        "address": "Örnek Mahallesi Depo Sokak No 3",
+                        "phone": null,
+                        "tax_number": "00000000001",
+                        "tax_place": "Örnek Vergi Dairesi"
+                      },
+                      "shipment_packages": [
+                        {
+                          "desi": "1",
+                          "barcode": "TEST1001_1",
+                          "content": "Örnek İçerik ĞÜŞİÖÇ",
+                          "real_desi": null
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "shipments.patch",
+        "tags": [
+          "Gönderiler"
+        ],
+        "summary": "Gönderiyi kısmi güncelle",
+        "description": "Yalnızca açıkça gönderilen alanları günceller; JSON null değeri gönderilmeyen alandan farklıdır.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Sıfırdan büyük gönderi kimliği.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Kısmi gönderi alanları.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "shipment"
+                ],
+                "properties": {
+                  "shipment": {
+                    "type": "object",
+                    "minProperties": 1,
+                    "additionalProperties": true
+                  }
+                }
+              },
+              "examples": {
+                "request": {
+                  "summary": "Kişisel bilgilerden arındırılmış istek",
+                  "value": {
+                    "shipment": {
+                      "buyer_email": null,
+                      "buyer_address": "Yeni Test Adresi No 42"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Gönderi kısmen güncellendi.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Shipment"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "id": 1001,
+                      "type": "shipment",
+                      "shipping_webservice_order_id": null,
+                      "shipping_webservice_barcode": null,
+                      "shipping_webservice_tracking_code": null,
+                      "shipping_provider_name": null,
+                      "shipping_provider_slug": null,
+                      "barcode_of_order_id": null,
+                      "status": "draft",
+                      "status_label": "Taslak",
+                      "shipping_webservice_created_at": null,
+                      "ecommerce_provider_order_no": "TEST-1001",
+                      "ecommerce_provider": "test",
+                      "package_count": 1,
+                      "estimated_price": null,
+                      "real_price": null,
+                      "extra_shipping_price": "0.0000",
+                      "buyer_name": "Örnek Kullanıcı",
+                      "delivery_date_to_shipment_office": null,
+                      "shipping_provider_customer_delivery_date": null,
+                      "created_at": "2026-09-11T10:15:30.000000+03:00",
+                      "updated_at": "2026-09-11T10:16:00.000000+03:00",
+                      "sender": {
+                        "sender_name": "Örnek Gönderici",
+                        "sender_email": "gonderici@example.com",
+                        "sender_phone": "5550000000",
+                        "sender_phone2": null,
+                        "sender_tax_number": "00000000000",
+                        "sender_tax_place": "Örnek Vergi Dairesi",
+                        "sender_address": "Örnek Mahallesi Örnek Sokak No 1",
+                        "sender_state": "İSTANBUL",
+                        "sender_city": "ÜSKÜDAR"
+                      },
+                      "buyer": {
+                        "buyer_name": "Örnek Kullanıcı",
+                        "buyer_email": "test@example.com",
+                        "buyer_phone": "0555000000",
+                        "buyer_phone2": null,
+                        "buyer_tax_number": null,
+                        "buyer_tax_place": null,
+                        "buyer_address": "Örnek Mahallesi Test Sokak No 2",
+                        "buyer_state": "İSTANBUL",
+                        "buyer_city": "AVCILAR"
+                      },
+                      "pricing": {
+                        "package_count": 1,
+                        "estimated_price": null,
+                        "real_price": null,
+                        "extra_shipping_price": "0.0000",
+                        "price_diff": null
+                      },
+                      "warehouse": {
+                        "id": 2001,
+                        "name": "Örnek Depo",
+                        "is_main": 1,
+                        "contact_name": "Örnek Yetkili",
+                        "contact_phone": "5550000001",
+                        "state": "İstanbul",
+                        "city": "Üsküdar",
+                        "address": "Örnek Mahallesi Depo Sokak No 3",
+                        "phone": null,
+                        "tax_number": "00000000001",
+                        "tax_place": "Örnek Vergi Dairesi"
+                      },
+                      "shipment_packages": [
+                        {
+                          "desi": "1",
+                          "barcode": "TEST1001_1",
+                          "content": "Örnek İçerik ĞÜŞİÖÇ",
+                          "real_desi": null
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "shipments.delete",
+        "tags": [
+          "Gönderiler"
+        ],
+        "summary": "Gönderiyi sil",
+        "description": "Silinmeye uygun bir gönderiyi kaldırır. Bu istek otomatik olarak yeniden gönderilmez.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Sıfırdan büyük gönderi kimliği.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "İşlem yanıt gövdesi olmadan başarıyla tamamlandı."
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      }
+    },
+    "/shipment-price-comparison/{id}": {
+      "get": {
+        "operationId": "pricing.compare",
+        "tags": [
+          "Fiyatlandırma"
+        ],
+        "summary": "Kargo fiyatlarını karşılaştır",
+        "description": "Fiyat metnini ve hizmet dışı bölge açıklamalarını değiştirmeden kargo firması tekliflerini döndürür.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Sıfırdan büyük gönderi kimliği.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Fiyat karşılaştırması.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceComparison"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "shipping_provider_with_price": [
+                        {
+                          "id": 3,
+                          "name": "Örnek Kargo",
+                          "slug": "test-kargo",
+                          "price": "22.67 + KDV"
+                        },
+                        {
+                          "id": 6,
+                          "name": "Bölge Dışı Kargo",
+                          "slug": "bolge-disi",
+                          "price": "Hizmet Dışı Bölge"
+                        },
+                        {
+                          "id": "-1",
+                          "name": "Otomatik",
+                          "slug": "otomatik",
+                          "price": null
+                        }
+                      ],
+                      "shipment": {
+                        "id": 1001,
+                        "type": "shipment",
+                        "status": "draft",
+                        "status_label": "Taslak",
+                        "package_count": 1,
+                        "extra_shipping_price": "0.0000",
+                        "buyer_name": "Örnek Kullanıcı",
+                        "created_at": "2026-09-11T10:15:30.000000+03:00",
+                        "updated_at": "2026-09-11T10:16:00.000000+03:00",
+                        "shipment_packages": []
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      }
+    },
+    "/confirm-shipping-price": {
+      "post": {
+        "operationId": "pricing.confirm",
+        "tags": [
+          "Fiyatlandırma"
+        ],
+        "summary": "Kargo firmasını onayla",
+        "description": "Kargo firmasını multipart form verisiyle onaylar. shipping_provider_id için -1 değeri otomatik seçim ister.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "shipment_id",
+                  "shipping_provider_id"
+                ],
+                "properties": {
+                  "shipment_id": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "shipping_provider_id": {
+                    "type": "integer",
+                    "minimum": -1
+                  }
+                }
+              },
+              "examples": {
+                "automatic": {
+                  "value": {
+                    "shipment_id": 1001,
+                    "shipping_provider_id": -1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Kargo firması onaylandı.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Shipment"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "id": 1001,
+                      "type": "shipment",
+                      "shipping_webservice_order_id": null,
+                      "shipping_webservice_barcode": null,
+                      "shipping_webservice_tracking_code": null,
+                      "shipping_provider_name": null,
+                      "shipping_provider_slug": null,
+                      "barcode_of_order_id": null,
+                      "status": "draft",
+                      "status_label": "Taslak",
+                      "shipping_webservice_created_at": null,
+                      "ecommerce_provider_order_no": "TEST-1001",
+                      "ecommerce_provider": "test",
+                      "package_count": 1,
+                      "estimated_price": null,
+                      "real_price": null,
+                      "extra_shipping_price": "0.0000",
+                      "buyer_name": "Örnek Kullanıcı",
+                      "delivery_date_to_shipment_office": null,
+                      "shipping_provider_customer_delivery_date": null,
+                      "created_at": "2026-09-11T10:15:30.000000+03:00",
+                      "updated_at": "2026-09-11T10:16:00.000000+03:00",
+                      "sender": {
+                        "sender_name": "Örnek Gönderici",
+                        "sender_email": "gonderici@example.com",
+                        "sender_phone": "5550000000",
+                        "sender_phone2": null,
+                        "sender_tax_number": "00000000000",
+                        "sender_tax_place": "Örnek Vergi Dairesi",
+                        "sender_address": "Örnek Mahallesi Örnek Sokak No 1",
+                        "sender_state": "İSTANBUL",
+                        "sender_city": "ÜSKÜDAR"
+                      },
+                      "buyer": {
+                        "buyer_name": "Örnek Kullanıcı",
+                        "buyer_email": "test@example.com",
+                        "buyer_phone": "0555000000",
+                        "buyer_phone2": null,
+                        "buyer_tax_number": null,
+                        "buyer_tax_place": null,
+                        "buyer_address": "Örnek Mahallesi Test Sokak No 2",
+                        "buyer_state": "İSTANBUL",
+                        "buyer_city": "AVCILAR"
+                      },
+                      "pricing": {
+                        "package_count": 1,
+                        "estimated_price": null,
+                        "real_price": null,
+                        "extra_shipping_price": "0.0000",
+                        "price_diff": null
+                      },
+                      "warehouse": {
+                        "id": 2001,
+                        "name": "Örnek Depo",
+                        "is_main": 1,
+                        "contact_name": "Örnek Yetkili",
+                        "contact_phone": "5550000001",
+                        "state": "İstanbul",
+                        "city": "Üsküdar",
+                        "address": "Örnek Mahallesi Depo Sokak No 3",
+                        "phone": null,
+                        "tax_number": "00000000001",
+                        "tax_place": "Örnek Vergi Dairesi"
+                      },
+                      "shipment_packages": [
+                        {
+                          "desi": "1",
+                          "barcode": "TEST1001_1",
+                          "content": "Örnek İçerik ĞÜŞİÖÇ",
+                          "real_desi": null
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      }
+    },
+    "/shipments/cancel": {
+      "post": {
+        "operationId": "shipments.cancel",
+        "tags": [
+          "Gönderiler"
+        ],
+        "summary": "Gönderi iptali iste",
+        "description": "İptal talebi oluşturur. Hizmet tarafındaki işlem beklemede kalabileceği için istek denetimsiz biçimde yeniden gönderilmemelidir.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Gönderi iptal talebi.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "shipment_id"
+                ],
+                "properties": {
+                  "shipment_id": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                },
+                "additionalProperties": false
+              },
+              "examples": {
+                "request": {
+                  "summary": "Kişisel bilgilerden arındırılmış istek",
+                  "value": {
+                    "shipment_id": 1001
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "İptal talebi kabul edildi.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cancellation"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "message": "Gönderi için iptal talebiniz alındı.",
+                      "shipment_id": 1001
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      }
+    },
+    "/warehouses": {
+      "post": {
+        "operationId": "warehouses.create",
+        "tags": [
+          "Depolar"
+        ],
+        "summary": "Depo oluştur",
+        "description": "Gönderici deposu oluşturur. Hizmet örneğinde JSON gövdesi bulunduğu halde yöntem belirtilmemiştir; POST kullanımı projenin belgelenmiş çıkarımıdır.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Depo iletişim ve adres bilgileri.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WarehouseEnvelope"
+              },
+              "examples": {
+                "request": {
+                  "summary": "Kişisel bilgilerden arındırılmış istek",
+                  "value": {
+                    "warehouse": {
+                      "name": "Örnek Depo",
+                      "is_main": false,
+                      "contact_name": "Örnek Yetkili",
+                      "contact_phone": "5550000001",
+                      "address": "Yalnızca entegrasyon testi için örnek adres",
+                      "state_id": 34,
+                      "city_id": 1,
+                      "tax_number": "1234567890"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Depo oluşturuldu.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Warehouse"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "id": 15,
+                      "name": "Örnek Depo",
+                      "is_main": false,
+                      "contact_name": "Örnek Yetkili",
+                      "contact_phone": "5550000001",
+                      "address": "Yalnızca entegrasyon testi için örnek adres",
+                      "state_id": 34,
+                      "city_id": 1,
+                      "tax_number": "1234567890"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        },
+        "x-provider-ambiguity": "HTTP method inferred as POST from the provider request body example."
+      }
+    },
+    "/shipments/{id}/barcode": {
+      "get": {
+        "operationId": "barcodes.get",
+        "tags": [
+          "Barkod"
+        ],
+        "summary": "Gönderiyi getir barcode",
+        "description": "Base64 ile kodlanmış PDF barkod zarfını döndürür. İçerik hassas ikili veri olarak işlenmelidir.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Sıfırdan büyük gönderi kimliği.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "description": "Bu sözleşmede yalnızca PDF desteklenir.",
+            "schema": {
+              "type": "string",
+              "const": "pdf",
+              "default": "pdf"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Barkod PDF zarfı.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Barkod"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "data": "JVBERi0xLjQKJUZpeHR1cmUtb25seQo=",
+                      "_fixture_note": "Yanıt zarfı doğrulanmamıştır; değer gerçek barkod veya müşteri verisi içermeyen küçük bir PDF benzeri örnektir."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      }
+    },
+    "/user/credit": {
+      "get": {
+        "operationId": "account.credit",
+        "tags": [
+          "Hesap"
+        ],
+        "summary": "Hesap kredisini getir",
+        "description": "Ondalık metni ikili kayan noktalı sayıya dönüştürmeden hesap kredisini döndürür.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hesap kredisi.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreditEnvelope"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "data": {
+                        "credit": 122.8
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      }
+    },
+    "/states": {
+      "get": {
+        "operationId": "locations.statesDefault",
+        "tags": [
+          "Konumlar"
+        ],
+        "summary": "Varsayılan ülkenin illerini listele",
+        "description": "Kargonomi tarafından belirlenen varsayılan ülkenin illerini döndürür.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "İl koleksiyonu.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StateCollection"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "data": [
+                        {
+                          "id": 34,
+                          "name": "İSTANBUL"
+                        },
+                        {
+                          "id": 6,
+                          "name": "ANKARA"
+                        }
+                      ],
+                      "_fixture_note": "Veri biçimi teknik belgeden türetilmiştir; yanıt zarfı doğrulanmamıştır."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      }
+    },
+    "/states/{countryId}": {
+      "get": {
+        "operationId": "locations.states",
+        "tags": [
+          "Konumlar"
+        ],
+        "summary": "İlleri listele",
+        "description": "Ülke kimliğine göre illeri döndürür. Ülke yolu hizmet gösteriminde isteğe bağlıdır ve ayrıca /states işlemiyle temsil edilir.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "countryId",
+            "in": "path",
+            "required": true,
+            "description": "Sıfırdan büyük ülke kimliği.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "İl koleksiyonu.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StateCollection"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "data": [
+                        {
+                          "id": 34,
+                          "name": "İSTANBUL"
+                        },
+                        {
+                          "id": 6,
+                          "name": "ANKARA"
+                        }
+                      ],
+                      "_fixture_note": "Veri biçimi teknik belgeden türetilmiştir; yanıt zarfı doğrulanmamıştır."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      }
+    },
+    "/cities/{stateId}": {
+      "get": {
+        "operationId": "locations.cities",
+        "tags": [
+          "Konumlar"
+        ],
+        "summary": "İlçeleri listele",
+        "description": "Bir ile bağlı ilçeleri döndürür.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "stateId",
+            "in": "path",
+            "required": true,
+            "description": "Sıfırdan büyük Kargonomi il kimliği.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "İlçe koleksiyonu.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CityCollection"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "data": [
+                        {
+                          "id": 828,
+                          "state_id": 34,
+                          "name": "ÜSKÜDAR"
+                        },
+                        {
+                          "id": 662,
+                          "state_id": 34,
+                          "name": "AVCILAR"
+                        }
+                      ],
+                      "_fixture_note": "Veri biçimi teknik belgeden türetilmiştir; yanıt zarfı doğrulanmamıştır."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      }
+    },
+    "/webhooks": {
+      "get": {
+        "operationId": "webhooks.list",
+        "tags": [
+          "Webhook Abonelikleri"
+        ],
+        "summary": "Webhook aboneliklerini listele",
+        "description": "Yapılandırılmış webhook aboneliklerini döndürür.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Webhook koleksiyonu.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebhookCollection"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "data": [
+                        {
+                          "id": 3001,
+                          "name": "Örnek Gönderi Webhook'u",
+                          "url": "https://example.com/hooks/shipment",
+                          "event_type": "shipment.updated",
+                          "is_active": true
+                        }
+                      ],
+                      "_fixture_note": "Yönetim yanıtının zarf biçimi resmî teknik belgede doğrulanmamıştır."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      },
+      "post": {
+        "operationId": "webhooks.create",
+        "tags": [
+          "Webhook Abonelikleri"
+        ],
+        "summary": "Webhook oluştur",
+        "description": "Erişilebilir bir HTTPS adresini hedefleyen webhook oluşturur.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Webhook aboneliği.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebhookWrite"
+              },
+              "examples": {
+                "request": {
+                  "summary": "Kişisel bilgilerden arındırılmış istek",
+                  "value": {
+                    "name": "Gönderi güncellemeleri",
+                    "url": "https://example.test/webhooks/kargonomi",
+                    "event_type": "shipment.updated",
+                    "is_active": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Webhook oluşturuldu.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Webhook"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "id": 3001,
+                      "name": "Örnek Gönderi Webhook'u",
+                      "url": "https://example.com/hooks/shipment",
+                      "event_type": "shipment.updated",
+                      "is_active": true,
+                      "_fixture_note": "Yönetim yanıtının zarf biçimi resmî teknik belgede doğrulanmamıştır."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      }
+    },
+    "/webhooks/{id}": {
+      "get": {
+        "operationId": "webhooks.get",
+        "tags": [
+          "Webhook Abonelikleri"
+        ],
+        "summary": "Webhook getir",
+        "description": "Kimliğe göre tek bir webhook döndürür.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Sıfırdan büyük webhook kimliği.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Webhook ayrıntısı.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Webhook"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "id": 3001,
+                      "name": "Örnek Gönderi Webhook'u",
+                      "url": "https://example.com/hooks/shipment",
+                      "event_type": "shipment.updated",
+                      "is_active": true,
+                      "_fixture_note": "Yönetim yanıtının zarf biçimi resmî teknik belgede doğrulanmamıştır."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        }
+      },
+      "put": {
+        "operationId": "webhooks.update",
+        "tags": [
+          "Webhook Abonelikleri"
+        ],
+        "summary": "Webhook güncelle",
+        "description": "Webhook aboneliğini bütünüyle değiştirir. Hizmet belgesindeki bir başlık kimliği göstermese de örnek yolda kimlik bulunur.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Sıfırdan büyük webhook kimliği.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Webhook aboneliğinin yeni değerleri.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebhookWrite"
+              },
+              "examples": {
+                "request": {
+                  "summary": "Kişisel bilgilerden arındırılmış istek",
+                  "value": {
+                    "name": "Gönderi güncellemeleri",
+                    "url": "https://example.test/webhooks/kargonomi",
+                    "event_type": "shipment.updated",
+                    "is_active": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Webhook güncellendi.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Webhook"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Başarılı yanıt",
+                    "value": {
+                      "id": 3001,
+                      "name": "Örnek Gönderi Webhook'u",
+                      "url": "https://example.com/hooks/shipment",
+                      "event_type": "shipment.updated",
+                      "is_active": true,
+                      "_fixture_note": "Yönetim yanıtının zarf biçimi resmî teknik belgede doğrulanmamıştır."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        },
+        "x-provider-ambiguity": "Path ID inferred from the provider example."
+      },
+      "delete": {
+        "operationId": "webhooks.delete",
+        "tags": [
+          "Webhook Abonelikleri"
+        ],
+        "summary": "Webhook sil",
+        "description": "Webhook aboneliğini siler. Hizmet belgesindeki bir başlık kimliği göstermese de örnek yolda kimlik bulunur.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Sıfırdan büyük webhook kimliği.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "İşlem yanıt gövdesi olmadan başarıyla tamamlandı."
+          },
+          "401": {
+            "$ref": "#/components/responses/Yetkisiz"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ProviderError"
+          }
+        },
+        "x-provider-ambiguity": "Path ID inferred from the provider example."
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "API token",
+        "description": "API anahtarını çalışma anında sağlayın. Anahtarı kaynak kodda veya dışa aktarılan ortam dosyalarında saklamayın."
+      }
+    },
+    "responses": {
+      "Yetkisiz": {
+        "description": "API anahtarı eksik, geçersiz veya yetkisiz.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiError"
+            },
+            "examples": {
+              "success": {
+                "summary": "Başarılı yanıt",
+                "value": {
+                  "message": "Yetkisiz"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "İstenen kaynak bulunamadı.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiError"
+            },
+            "examples": {
+              "success": {
+                "summary": "Başarılı yanıt",
+                "value": {
+                  "message": "Resource not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "description": "İstek doğrulaması başarısız oldu.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "examples": {
+              "success": {
+                "summary": "Başarılı yanıt",
+                "value": {
+                  "message": "Doğrulama başarısız oldu",
+                  "errors": {
+                    "buyer_phone": [
+                      "Must contain exactly 10 digits."
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "RateLimited": {
+        "description": "İstek sıklığı sınırı aşıldı.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiError"
+            },
+            "examples": {
+              "success": {
+                "summary": "Başarılı yanıt",
+                "value": {
+                  "message": "Too many requests"
+                }
+              }
+            }
+          }
+        },
+        "headers": {
+          "Retry-After": {
+            "description": "Güvenli isteğin yeniden gönderilmesinden önce beklenecek saniye.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "ProviderError": {
+        "description": "Kargonomi veya üst hizmet işleme hatası.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiError"
+            },
+            "examples": {
+              "success": {
+                "summary": "Başarılı yanıt",
+                "value": {
+                  "message": "Kargonomi isteği tamamlanamadı."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "ApiError": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "request_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "ValidationError": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ApiError"
+          },
+          {
+            "type": "object",
+            "required": [
+              "errors"
+            ],
+            "properties": {
+              "errors": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ShipmentStatus": {
+        "type": "string",
+        "description": "Açık metin alanı: bilinmeyen hizmet değerlerini değiştirmeden koruyun.",
+        "examples": [
+          "pending"
+        ]
+      },
+      "ShipmentPackage": {
+        "type": "object",
+        "required": [
+          "desi"
+        ],
+        "properties": {
+          "desi": {
+            "type": [
+              "string",
+              "number"
+            ],
+            "pattern": "^\\d+(?:\\.\\d+)?$"
+          },
+          "content": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "barcode": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "real_desi": {
+            "type": [
+              "string",
+              "number",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "ShipmentParty": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "email": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "email"
+          },
+          "phone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "address": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "state": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "city": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "Shipment": {
+        "type": "object",
+        "required": [
+          "id",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "status": {
+            "$ref": "#/components/schemas/ShipmentStatus"
+          },
+          "status_label": {
+            "type": "string"
+          },
+          "buyer_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "buyer": {
+            "$ref": "#/components/schemas/ShipmentParty"
+          },
+          "sender": {
+            "$ref": "#/components/schemas/ShipmentParty"
+          },
+          "shipment_packages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShipmentPackage"
+            }
+          },
+          "estimated_price": {
+            "type": [
+              "string",
+              "number",
+              "null"
+            ]
+          },
+          "real_price": {
+            "type": [
+              "string",
+              "number",
+              "null"
+            ]
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "ShipmentPage": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Shipment"
+            }
+          },
+          "links": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "current_page",
+              "last_page",
+              "per_page",
+              "total"
+            ],
+            "properties": {
+              "current_page": {
+                "type": "integer"
+              },
+              "last_page": {
+                "type": "integer"
+              },
+              "per_page": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      },
+      "ShipmentWrite": {
+        "type": "object",
+        "required": [
+          "buyer_name",
+          "buyer_phone",
+          "buyer_address",
+          "buyer_state_id",
+          "buyer_city_id",
+          "packages"
+        ],
+        "properties": {
+          "warehouse_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "buyer_name": {
+            "type": "string",
+            "minLength": 5
+          },
+          "buyer_phone": {
+            "type": "string",
+            "pattern": "^\\d{10}$"
+          },
+          "buyer_address": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 512
+          },
+          "buyer_state_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "buyer_city_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "packages": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/ShipmentPackage"
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "ShipmentEnvelope": {
+        "type": "object",
+        "required": [
+          "shipment"
+        ],
+        "properties": {
+          "shipment": {
+            "$ref": "#/components/schemas/ShipmentWrite"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PriceOffer": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "slug",
+          "price"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "price": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Hizmet dışı bölge açıklamaları dâhil, Kargonomi tarafından döndürülen ham metin."
+          }
+        },
+        "additionalProperties": true
+      },
+      "PriceComparison": {
+        "type": "object",
+        "required": [
+          "shipping_provider_with_price",
+          "shipment"
+        ],
+        "properties": {
+          "shipping_provider_with_price": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PriceOffer"
+            }
+          },
+          "shipment": {
+            "$ref": "#/components/schemas/Shipment"
+          }
+        },
+        "additionalProperties": true
+      },
+      "Cancellation": {
+        "type": "object",
+        "required": [
+          "message",
+          "shipment_id"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "shipment_id": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "additionalProperties": true
+      },
+      "WarehouseWrite": {
+        "type": "object",
+        "required": [
+          "name",
+          "is_main",
+          "contact_name",
+          "contact_phone",
+          "address",
+          "state_id",
+          "city_id",
+          "tax_number"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 2
+          },
+          "is_main": {
+            "type": "boolean"
+          },
+          "contact_name": {
+            "type": "string",
+            "minLength": 2
+          },
+          "contact_phone": {
+            "type": "string",
+            "pattern": "^\\d{10}$"
+          },
+          "address": {
+            "type": "string",
+            "minLength": 10
+          },
+          "state_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "city_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "tax_number": {
+            "type": "string",
+            "pattern": "^\\d{10,11}$"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WarehouseEnvelope": {
+        "type": "object",
+        "required": [
+          "warehouse"
+        ],
+        "properties": {
+          "warehouse": {
+            "$ref": "#/components/schemas/WarehouseWrite"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Warehouse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WarehouseWrite"
+          },
+          {
+            "type": "object",
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "additionalProperties": true
+          }
+        ]
+      },
+      "Barkod": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "type": "string",
+            "contentEncoding": "base64",
+            "contentMediaType": "application/pdf"
+          }
+        },
+        "additionalProperties": true
+      },
+      "CreditEnvelope": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "credit"
+            ],
+            "properties": {
+              "credit": {
+                "type": [
+                  "string",
+                  "number"
+                ]
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      },
+      "State": {
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "City": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/State"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "state_id": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        ]
+      },
+      "StateCollection": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/State"
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "CityCollection": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/City"
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "WebhookWrite": {
+        "type": "object",
+        "required": [
+          "name",
+          "url",
+          "event_type",
+          "is_active"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 2
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://"
+          },
+          "event_type": {
+            "type": "string",
+            "minLength": 1,
+            "examples": [
+              "shipment.updated"
+            ]
+          },
+          "is_active": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Webhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookWrite"
+          },
+          {
+            "type": "object",
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "additionalProperties": true
+          }
+        ]
+      },
+      "WebhookCollection": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Webhook"
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "name": "@kargonomi/client",
+  "version": "2.5.0-Enterprise",
+  "description": "Kargonomi API için tür güvenli Node.js ve TypeScript istemcisi.",
+  "type": "module",
+  "sideEffects": false,
+  "author": "Hamza Deniz Yılmaz ve Beyza Gül",
+  "contributors": [
+    "Hamza Deniz Yılmaz",
+    "Beyza Gül"
+  ],
+  "license": "GPL-3.0-only",
+  "homepage": "https://github.com/hamzadenizyilmaz/Kargonomi-API#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hamzadenizyilmaz/Kargonomi-API.git",
+    "directory": "NodeJS"
+  },
+  "bugs": {
+    "url": "https://github.com/hamzadenizyilmaz/Kargonomi-API/issues"
+  },
+  "engines": {
+    "node": ">=24",
+    "npm": ">=12"
+  },
+  "packageManager": "npm@12.0.2",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "appsettings.json",
+    "Database/Database_JS.sql",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "lint": "eslint src",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "npm run clean && tsc -p tsconfig.build.json",
+    "pack:check": "npm pack --dry-run",
+    "verify": "npm run lint && npm run typecheck && npm run build && npm run pack:check"
+  },
+  "keywords": [
+    "kargonomi",
+    "shipping",
+    "cargo",
+    "sdk",
+    "typescript"
+  ],
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.13.4",
+    "eslint": "10.10.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.70.0"
+  }
+}

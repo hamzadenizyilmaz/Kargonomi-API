@@ -1,0 +1,16 @@
+{
+  "shipment": {
+    "warehouse_id": 2001,
+    "buyer_name": "Örnek Kullanıcı",
+    "buyer_email": "test@example.com",
+    "buyer_tax_number": "",
+    "buyer_tax_place": "",
+    "buyer_phone": "0555000000",
+    "buyer_address": "Örnek Mahallesi Test Sokak No 2",
+    "buyer_state_id": 34,
+    "buyer_city_id": 828,
+    "packages": [
+      { "content": "Örnek İçerik", "barcode": "", "desi": "1.5" }
+    ]
+  }
+}

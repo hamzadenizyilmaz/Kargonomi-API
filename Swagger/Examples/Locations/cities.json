@@ -1,0 +1,7 @@
+{
+  "data": [
+    { "id": 828, "state_id": 34, "name": "ÜSKÜDAR" },
+    { "id": 662, "state_id": 34, "name": "AVCILAR" }
+  ],
+  "_fixture_note": "Veri biçimi teknik belgeden türetilmiştir; yanıt zarfı doğrulanmamıştır."
+}

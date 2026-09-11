@@ -1,0 +1,6 @@
+{
+  "data": [
+    { "id": 3001, "name": "Örnek Gönderi Webhook'u", "url": "https://example.com/hooks/shipment", "event_type": "shipment.updated", "is_active": true }
+  ],
+  "_fixture_note": "Yönetim yanıtının zarf biçimi resmî teknik belgede doğrulanmamıştır."
+}

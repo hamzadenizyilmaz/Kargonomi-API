@@ -1,0 +1,34 @@
+{
+  "name": "@kargonomi/workspace",
+  "version": "2.5.0-Enterprise",
+  "private": true,
+  "description": "Kargonomi API için ASP.NET, Node.js, PHP, Python ve Electron masaüstü entegrasyon çalışma alanı.",
+  "author": "Hamza Deniz Yılmaz ve Beyza Gül",
+  "contributors": [
+    "Hamza Deniz Yılmaz",
+    "Beyza Gül"
+  ],
+  "license": "GPL-3.0-only",
+  "homepage": "https://github.com/hamzadenizyilmaz/Kargonomi-API#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hamzadenizyilmaz/Kargonomi-API.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hamzadenizyilmaz/Kargonomi-API/issues"
+  },
+  "engines": {
+    "node": ">=24",
+    "npm": ">=12"
+  },
+  "packageManager": "npm@12.0.2",
+  "scripts": {
+    "install:all": "npm ci --prefix NodeJS && npm --prefix NodeJS run build && npm ci --prefix \"ElectronJS - Deskop\"",
+    "openapi:check": "node -e \"JSON.parse(require('node:fs').readFileSync('Swagger/kargonomi-openapi.json','utf8')); console.log('OpenAPI JSON valid')\"",
+    "postman:check": "node -e \"for (const f of require('node:fs').readdirSync('Postman').filter(x=>x.endsWith('.json'))) JSON.parse(require('node:fs').readFileSync('Postman/'+f,'utf8')); console.log('Postman JSON valid')\"",
+    "lint": "npm --prefix NodeJS run lint && npm --prefix \"ElectronJS - Deskop\" run lint",
+    "typecheck": "npm --prefix NodeJS run typecheck && npm --prefix NodeJS run build && npm --prefix \"ElectronJS - Deskop\" run typecheck",
+    "build": "npm --prefix NodeJS run build && npm --prefix \"ElectronJS - Deskop\" run build",
+    "verify": "npm run openapi:check && npm run postman:check && npm run lint && npm run typecheck && npm run build"
+  }
+}

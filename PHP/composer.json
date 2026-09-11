@@ -1,0 +1,38 @@
+{
+  "name": "kargonomi/client",
+  "description": "Kargonomi API için tür güvenli PHP 8.5 istemcisi",
+  "version": "2.5.0+enterprise",
+  "type": "library",
+  "license": "GPL-3.0-only",
+  "authors": [
+    { "name": "Hamza Deniz Yılmaz", "homepage": "https://github.com/hamzadenizyilmaz" },
+    { "name": "Beyza Gül", "homepage": "https://github.com/beyzagul02" }
+  ],
+  "keywords": ["kargonomi", "shipping", "sdk"],
+  "require": {
+    "php": "^8.5",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.0",
+    "phpstan/phpstan": "^2.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Kargonomi\\": "src/"
+    }
+  },
+  "scripts": {
+    "lint": "php-cs-fixer check --diff",
+    "analyse": "phpstan analyse --debug --no-progress --memory-limit=512M",
+    "check": ["@lint", "@analyse"]
+  },
+  "config": {
+    "allow-plugins": {},
+    "sort-packages": true
+  },
+  "extra": {
+    "product-version": "2.5.0-Enterprise"
+  }
+}

@@ -1,0 +1,3296 @@
+{
+  "info": {
+    "_postman_id": "5b462172-5322-4d2a-a886-c43910912744",
+    "name": "Kargonomi API",
+    "description": "Ortak API sözleşmesiyle uyumlu bağımsız Kargonomi API koleksiyonu. API anahtarı etkin ortamda tutulur. Veri değiştiren işlemlerde yalnızca size ait yetkili bir hesap kullanın.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{apiToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "page",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Gönderiler",
+      "item": [
+        {
+          "name": "List Gönderiler",
+          "request": {
+            "method": "GET",
+            "description": "Gönderileri birden başlayan sayfalandırmayla listeler. Bu okuma isteği sınırlı sayıda yeniden gönderilebilir.",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/shipments?page={{page}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "shipments"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Birden başlayan sayfa numarası"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Gönderileri birden başlayan sayfalandırmayla listeler. Bu okuma isteği sınırlı sayıda yeniden gönderilebilir.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipments?page={{page}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1",
+                      "description": "Birden başlayan sayfa numarası"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 1001,\n      \"type\": \"shipment\",\n      \"shipping_webservice_order_id\": null,\n      \"shipping_webservice_barcode\": null,\n      \"shipping_webservice_tracking_code\": null,\n      \"shipping_provider_name\": null,\n      \"shipping_provider_slug\": null,\n      \"barcode_of_order_id\": null,\n      \"status\": \"draft\",\n      \"status_label\": \"Taslak\",\n      \"shipping_webservice_created_at\": null,\n      \"ecommerce_provider_order_no\": \"TEST-1001\",\n      \"ecommerce_provider\": \"test\",\n      \"package_count\": 1,\n      \"estimated_price\": null,\n      \"real_price\": null,\n      \"extra_shipping_price\": \"0.0000\",\n      \"buyer_name\": \"Örnek Kullanıcı\",\n      \"delivery_date_to_shipment_office\": null,\n      \"shipping_provider_customer_delivery_date\": null,\n      \"created_at\": \"2026-09-11T10:15:30.000000+03:00\",\n      \"updated_at\": \"2026-09-11T10:16:00.000000+03:00\",\n      \"sender\": null,\n      \"buyer\": null,\n      \"pricing\": null,\n      \"warehouse\": null,\n      \"shipment_packages\": []\n    }\n  ],\n  \"links\": {\n    \"first\": \"https://app.kargonomi.com.tr/api/v1/shipments?page=1\",\n    \"last\": \"https://app.kargonomi.com.tr/api/v1/shipments?page=1\",\n    \"prev\": null,\n    \"next\": null\n  },\n  \"meta\": {\n    \"current_page\": 1,\n    \"from\": 1,\n    \"last_page\": 1,\n    \"links\": [],\n    \"path\": \"https://app.kargonomi.com.tr/api/v1/shipments\",\n    \"per_page\": 50,\n    \"to\": 1,\n    \"total\": 1\n  }\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Gönderileri birden başlayan sayfalandırmayla listeler. Bu okuma isteği sınırlı sayıda yeniden gönderilebilir.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipments?page={{page}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1",
+                      "description": "Birden başlayan sayfa numarası"
+                    }
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Gönderileri birden başlayan sayfalandırmayla listeler. Bu okuma isteği sınırlı sayıda yeniden gönderilebilir.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipments?page={{page}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1",
+                      "description": "Birden başlayan sayfa numarası"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Gönderileri birden başlayan sayfalandırmayla listeler. Bu okuma isteği sınırlı sayıda yeniden gönderilebilir.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipments?page={{page}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1",
+                      "description": "Birden başlayan sayfa numarası"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Gönderiyi Getir",
+          "request": {
+            "method": "GET",
+            "description": "shipmentId değişkenine göre gönderiyi getirir.",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "shipments",
+                "{{shipmentId}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "GET",
+                "description": "shipmentId değişkenine göre gönderiyi getirir.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 1001,\n  \"type\": \"shipment\",\n  \"shipping_webservice_order_id\": null,\n  \"shipping_webservice_barcode\": null,\n  \"shipping_webservice_tracking_code\": null,\n  \"shipping_provider_name\": null,\n  \"shipping_provider_slug\": null,\n  \"barcode_of_order_id\": null,\n  \"status\": \"draft\",\n  \"status_label\": \"Taslak\",\n  \"shipping_webservice_created_at\": null,\n  \"ecommerce_provider_order_no\": \"TEST-1001\",\n  \"ecommerce_provider\": \"test\",\n  \"package_count\": 1,\n  \"estimated_price\": null,\n  \"real_price\": null,\n  \"extra_shipping_price\": \"0.0000\",\n  \"buyer_name\": \"Örnek Kullanıcı\",\n  \"delivery_date_to_shipment_office\": null,\n  \"shipping_provider_customer_delivery_date\": null,\n  \"created_at\": \"2026-09-11T10:15:30.000000+03:00\",\n  \"updated_at\": \"2026-09-11T10:16:00.000000+03:00\",\n  \"sender\": {\n    \"sender_name\": \"Örnek Gönderici\",\n    \"sender_email\": \"gonderici@example.com\",\n    \"sender_phone\": \"5550000000\",\n    \"sender_phone2\": null,\n    \"sender_tax_number\": \"00000000000\",\n    \"sender_tax_place\": \"Örnek Vergi Dairesi\",\n    \"sender_address\": \"Örnek Mahallesi Örnek Sokak No 1\",\n    \"sender_state\": \"İSTANBUL\",\n    \"sender_city\": \"ÜSKÜDAR\"\n  },\n  \"buyer\": {\n    \"buyer_name\": \"Örnek Kullanıcı\",\n    \"buyer_email\": \"test@example.com\",\n    \"buyer_phone\": \"0555000000\",\n    \"buyer_phone2\": null,\n    \"buyer_tax_number\": null,\n    \"buyer_tax_place\": null,\n    \"buyer_address\": \"Örnek Mahallesi Test Sokak No 2\",\n    \"buyer_state\": \"İSTANBUL\",\n    \"buyer_city\": \"AVCILAR\"\n  },\n  \"pricing\": {\n    \"package_count\": 1,\n    \"estimated_price\": null,\n    \"real_price\": null,\n    \"extra_shipping_price\": \"0.0000\",\n    \"price_diff\": null\n  },\n  \"warehouse\": {\n    \"id\": 2001,\n    \"name\": \"Örnek Depo\",\n    \"is_main\": 1,\n    \"contact_name\": \"Örnek Yetkili\",\n    \"contact_phone\": \"5550000001\",\n    \"state\": \"İstanbul\",\n    \"city\": \"Üsküdar\",\n    \"address\": \"Örnek Mahallesi Depo Sokak No 3\",\n    \"phone\": null,\n    \"tax_number\": \"00000000001\",\n    \"tax_place\": \"Örnek Vergi Dairesi\"\n  },\n  \"shipment_packages\": [\n    {\n      \"desi\": \"1\",\n      \"barcode\": \"TEST1001_1\",\n      \"content\": \"Örnek İçerik ĞÜŞİÖÇ\",\n      \"real_desi\": null\n    }\n  ]\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "GET",
+                "description": "shipmentId değişkenine göre gönderiyi getirir.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "shipmentId değişkenine göre gönderiyi getirir.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "shipmentId değişkenine göre gönderiyi getirir.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Gönderi Oluştur",
+          "request": {
+            "method": "POST",
+            "description": "Gönderi oluşturur. Bu işlem hesaptaki verileri değiştirebilir ve denetimsiz biçimde yeniden gönderilmemelidir.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipment\": {\n    \"warehouse_id\": \"{{warehouseId}}\",\n    \"buyer_name\": \"Örnek Kullanıcı\",\n    \"buyer_phone\": \"5550000000\",\n    \"buyer_address\": \"Yalnızca entegrasyon testi için örnek adres\",\n    \"buyer_state_id\": \"{{stateId}}\",\n    \"buyer_city_id\": \"{{cityId}}\",\n    \"packages\": [\n      {\n        \"content\": \"Örnek paket\",\n        \"desi\": 1\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/shipments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "shipments"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Gönderi oluşturur. Bu işlem hesaptaki verileri değiştirebilir ve denetimsiz biçimde yeniden gönderilmemelidir.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment\": {\n    \"warehouse_id\": \"{{warehouseId}}\",\n    \"buyer_name\": \"Örnek Kullanıcı\",\n    \"buyer_phone\": \"5550000000\",\n    \"buyer_address\": \"Yalnızca entegrasyon testi için örnek adres\",\n    \"buyer_state_id\": \"{{stateId}}\",\n    \"buyer_city_id\": \"{{cityId}}\",\n    \"packages\": [\n      {\n        \"content\": \"Örnek paket\",\n        \"desi\": 1\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/shipments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 1001,\n  \"type\": \"shipment\",\n  \"shipping_webservice_order_id\": null,\n  \"shipping_webservice_barcode\": null,\n  \"shipping_webservice_tracking_code\": null,\n  \"shipping_provider_name\": null,\n  \"shipping_provider_slug\": null,\n  \"barcode_of_order_id\": null,\n  \"status\": \"draft\",\n  \"status_label\": \"Taslak\",\n  \"shipping_webservice_created_at\": null,\n  \"ecommerce_provider_order_no\": \"TEST-1001\",\n  \"ecommerce_provider\": \"test\",\n  \"package_count\": 1,\n  \"estimated_price\": null,\n  \"real_price\": null,\n  \"extra_shipping_price\": \"0.0000\",\n  \"buyer_name\": \"Örnek Kullanıcı\",\n  \"delivery_date_to_shipment_office\": null,\n  \"shipping_provider_customer_delivery_date\": null,\n  \"created_at\": \"2026-09-11T10:15:30.000000+03:00\",\n  \"updated_at\": \"2026-09-11T10:16:00.000000+03:00\",\n  \"sender\": {\n    \"sender_name\": \"Örnek Gönderici\",\n    \"sender_email\": \"gonderici@example.com\",\n    \"sender_phone\": \"5550000000\",\n    \"sender_phone2\": null,\n    \"sender_tax_number\": \"00000000000\",\n    \"sender_tax_place\": \"Örnek Vergi Dairesi\",\n    \"sender_address\": \"Örnek Mahallesi Örnek Sokak No 1\",\n    \"sender_state\": \"İSTANBUL\",\n    \"sender_city\": \"ÜSKÜDAR\"\n  },\n  \"buyer\": {\n    \"buyer_name\": \"Örnek Kullanıcı\",\n    \"buyer_email\": \"test@example.com\",\n    \"buyer_phone\": \"0555000000\",\n    \"buyer_phone2\": null,\n    \"buyer_tax_number\": null,\n    \"buyer_tax_place\": null,\n    \"buyer_address\": \"Örnek Mahallesi Test Sokak No 2\",\n    \"buyer_state\": \"İSTANBUL\",\n    \"buyer_city\": \"AVCILAR\"\n  },\n  \"pricing\": {\n    \"package_count\": 1,\n    \"estimated_price\": null,\n    \"real_price\": null,\n    \"extra_shipping_price\": \"0.0000\",\n    \"price_diff\": null\n  },\n  \"warehouse\": {\n    \"id\": 2001,\n    \"name\": \"Örnek Depo\",\n    \"is_main\": 1,\n    \"contact_name\": \"Örnek Yetkili\",\n    \"contact_phone\": \"5550000001\",\n    \"state\": \"İstanbul\",\n    \"city\": \"Üsküdar\",\n    \"address\": \"Örnek Mahallesi Depo Sokak No 3\",\n    \"phone\": null,\n    \"tax_number\": \"00000000001\",\n    \"tax_place\": \"Örnek Vergi Dairesi\"\n  },\n  \"shipment_packages\": [\n    {\n      \"desi\": \"1\",\n      \"barcode\": \"TEST1001_1\",\n      \"content\": \"Örnek İçerik ĞÜŞİÖÇ\",\n      \"real_desi\": null\n    }\n  ]\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Gönderi oluşturur. Bu işlem hesaptaki verileri değiştirebilir ve denetimsiz biçimde yeniden gönderilmemelidir.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment\": {\n    \"warehouse_id\": \"{{warehouseId}}\",\n    \"buyer_name\": \"Örnek Kullanıcı\",\n    \"buyer_phone\": \"5550000000\",\n    \"buyer_address\": \"Yalnızca entegrasyon testi için örnek adres\",\n    \"buyer_state_id\": \"{{stateId}}\",\n    \"buyer_city_id\": \"{{cityId}}\",\n    \"packages\": [\n      {\n        \"content\": \"Örnek paket\",\n        \"desi\": 1\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/shipments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Gönderi oluşturur. Bu işlem hesaptaki verileri değiştirebilir ve denetimsiz biçimde yeniden gönderilmemelidir.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment\": {\n    \"warehouse_id\": \"{{warehouseId}}\",\n    \"buyer_name\": \"Örnek Kullanıcı\",\n    \"buyer_phone\": \"5550000000\",\n    \"buyer_address\": \"Yalnızca entegrasyon testi için örnek adres\",\n    \"buyer_state_id\": \"{{stateId}}\",\n    \"buyer_city_id\": \"{{cityId}}\",\n    \"packages\": [\n      {\n        \"content\": \"Örnek paket\",\n        \"desi\": 1\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/shipments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Gönderi oluşturur. Bu işlem hesaptaki verileri değiştirebilir ve denetimsiz biçimde yeniden gönderilmemelidir.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment\": {\n    \"warehouse_id\": \"{{warehouseId}}\",\n    \"buyer_name\": \"Örnek Kullanıcı\",\n    \"buyer_phone\": \"5550000000\",\n    \"buyer_address\": \"Yalnızca entegrasyon testi için örnek adres\",\n    \"buyer_state_id\": \"{{stateId}}\",\n    \"buyer_city_id\": \"{{cityId}}\",\n    \"packages\": [\n      {\n        \"content\": \"Örnek paket\",\n        \"desi\": 1\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/shipments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Gönderiyi Tam Güncelle",
+          "request": {
+            "method": "PUT",
+            "description": "shipmentId değişkenindeki gönderinin düzenlenebilir verilerini bütünüyle değiştirir.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipment\": {\n    \"warehouse_id\": \"{{warehouseId}}\",\n    \"buyer_name\": \"Örnek Kullanıcı\",\n    \"buyer_phone\": \"5550000000\",\n    \"buyer_address\": \"Yalnızca entegrasyon testi için örnek adres\",\n    \"buyer_state_id\": \"{{stateId}}\",\n    \"buyer_city_id\": \"{{cityId}}\",\n    \"packages\": [\n      {\n        \"content\": \"Örnek paket\",\n        \"desi\": 1\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "shipments",
+                "{{shipmentId}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "PUT",
+                "description": "shipmentId değişkenindeki gönderinin düzenlenebilir verilerini bütünüyle değiştirir.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment\": {\n    \"warehouse_id\": \"{{warehouseId}}\",\n    \"buyer_name\": \"Örnek Kullanıcı\",\n    \"buyer_phone\": \"5550000000\",\n    \"buyer_address\": \"Yalnızca entegrasyon testi için örnek adres\",\n    \"buyer_state_id\": \"{{stateId}}\",\n    \"buyer_city_id\": \"{{cityId}}\",\n    \"packages\": [\n      {\n        \"content\": \"Örnek paket\",\n        \"desi\": 1\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 1001,\n  \"type\": \"shipment\",\n  \"shipping_webservice_order_id\": null,\n  \"shipping_webservice_barcode\": null,\n  \"shipping_webservice_tracking_code\": null,\n  \"shipping_provider_name\": null,\n  \"shipping_provider_slug\": null,\n  \"barcode_of_order_id\": null,\n  \"status\": \"draft\",\n  \"status_label\": \"Taslak\",\n  \"shipping_webservice_created_at\": null,\n  \"ecommerce_provider_order_no\": \"TEST-1001\",\n  \"ecommerce_provider\": \"test\",\n  \"package_count\": 1,\n  \"estimated_price\": null,\n  \"real_price\": null,\n  \"extra_shipping_price\": \"0.0000\",\n  \"buyer_name\": \"Örnek Kullanıcı\",\n  \"delivery_date_to_shipment_office\": null,\n  \"shipping_provider_customer_delivery_date\": null,\n  \"created_at\": \"2026-09-11T10:15:30.000000+03:00\",\n  \"updated_at\": \"2026-09-11T10:16:00.000000+03:00\",\n  \"sender\": {\n    \"sender_name\": \"Örnek Gönderici\",\n    \"sender_email\": \"gonderici@example.com\",\n    \"sender_phone\": \"5550000000\",\n    \"sender_phone2\": null,\n    \"sender_tax_number\": \"00000000000\",\n    \"sender_tax_place\": \"Örnek Vergi Dairesi\",\n    \"sender_address\": \"Örnek Mahallesi Örnek Sokak No 1\",\n    \"sender_state\": \"İSTANBUL\",\n    \"sender_city\": \"ÜSKÜDAR\"\n  },\n  \"buyer\": {\n    \"buyer_name\": \"Örnek Kullanıcı\",\n    \"buyer_email\": \"test@example.com\",\n    \"buyer_phone\": \"0555000000\",\n    \"buyer_phone2\": null,\n    \"buyer_tax_number\": null,\n    \"buyer_tax_place\": null,\n    \"buyer_address\": \"Örnek Mahallesi Test Sokak No 2\",\n    \"buyer_state\": \"İSTANBUL\",\n    \"buyer_city\": \"AVCILAR\"\n  },\n  \"pricing\": {\n    \"package_count\": 1,\n    \"estimated_price\": null,\n    \"real_price\": null,\n    \"extra_shipping_price\": \"0.0000\",\n    \"price_diff\": null\n  },\n  \"warehouse\": {\n    \"id\": 2001,\n    \"name\": \"Örnek Depo\",\n    \"is_main\": 1,\n    \"contact_name\": \"Örnek Yetkili\",\n    \"contact_phone\": \"5550000001\",\n    \"state\": \"İstanbul\",\n    \"city\": \"Üsküdar\",\n    \"address\": \"Örnek Mahallesi Depo Sokak No 3\",\n    \"phone\": null,\n    \"tax_number\": \"00000000001\",\n    \"tax_place\": \"Örnek Vergi Dairesi\"\n  },\n  \"shipment_packages\": [\n    {\n      \"desi\": \"1\",\n      \"barcode\": \"TEST1001_1\",\n      \"content\": \"Örnek İçerik ĞÜŞİÖÇ\",\n      \"real_desi\": null\n    }\n  ]\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "PUT",
+                "description": "shipmentId değişkenindeki gönderinin düzenlenebilir verilerini bütünüyle değiştirir.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment\": {\n    \"warehouse_id\": \"{{warehouseId}}\",\n    \"buyer_name\": \"Örnek Kullanıcı\",\n    \"buyer_phone\": \"5550000000\",\n    \"buyer_address\": \"Yalnızca entegrasyon testi için örnek adres\",\n    \"buyer_state_id\": \"{{stateId}}\",\n    \"buyer_city_id\": \"{{cityId}}\",\n    \"packages\": [\n      {\n        \"content\": \"Örnek paket\",\n        \"desi\": 1\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "PUT",
+                "description": "shipmentId değişkenindeki gönderinin düzenlenebilir verilerini bütünüyle değiştirir.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment\": {\n    \"warehouse_id\": \"{{warehouseId}}\",\n    \"buyer_name\": \"Örnek Kullanıcı\",\n    \"buyer_phone\": \"5550000000\",\n    \"buyer_address\": \"Yalnızca entegrasyon testi için örnek adres\",\n    \"buyer_state_id\": \"{{stateId}}\",\n    \"buyer_city_id\": \"{{cityId}}\",\n    \"packages\": [\n      {\n        \"content\": \"Örnek paket\",\n        \"desi\": 1\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "PUT",
+                "description": "shipmentId değişkenindeki gönderinin düzenlenebilir verilerini bütünüyle değiştirir.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment\": {\n    \"warehouse_id\": \"{{warehouseId}}\",\n    \"buyer_name\": \"Örnek Kullanıcı\",\n    \"buyer_phone\": \"5550000000\",\n    \"buyer_address\": \"Yalnızca entegrasyon testi için örnek adres\",\n    \"buyer_state_id\": \"{{stateId}}\",\n    \"buyer_city_id\": \"{{cityId}}\",\n    \"packages\": [\n      {\n        \"content\": \"Örnek paket\",\n        \"desi\": 1\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Gönderiyi Kısmi Güncelle",
+          "request": {
+            "method": "PATCH",
+            "description": "Yalnızca gönderilen alanları günceller; null değeri gönderilmeyen alandan farklıdır.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipment\": {\n    \"buyer_email\": null\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "shipments",
+                "{{shipmentId}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "PATCH",
+                "description": "Yalnızca gönderilen alanları günceller; null değeri gönderilmeyen alandan farklıdır.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment\": {\n    \"buyer_email\": null\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 1001,\n  \"type\": \"shipment\",\n  \"shipping_webservice_order_id\": null,\n  \"shipping_webservice_barcode\": null,\n  \"shipping_webservice_tracking_code\": null,\n  \"shipping_provider_name\": null,\n  \"shipping_provider_slug\": null,\n  \"barcode_of_order_id\": null,\n  \"status\": \"draft\",\n  \"status_label\": \"Taslak\",\n  \"shipping_webservice_created_at\": null,\n  \"ecommerce_provider_order_no\": \"TEST-1001\",\n  \"ecommerce_provider\": \"test\",\n  \"package_count\": 1,\n  \"estimated_price\": null,\n  \"real_price\": null,\n  \"extra_shipping_price\": \"0.0000\",\n  \"buyer_name\": \"Örnek Kullanıcı\",\n  \"delivery_date_to_shipment_office\": null,\n  \"shipping_provider_customer_delivery_date\": null,\n  \"created_at\": \"2026-09-11T10:15:30.000000+03:00\",\n  \"updated_at\": \"2026-09-11T10:16:00.000000+03:00\",\n  \"sender\": {\n    \"sender_name\": \"Örnek Gönderici\",\n    \"sender_email\": \"gonderici@example.com\",\n    \"sender_phone\": \"5550000000\",\n    \"sender_phone2\": null,\n    \"sender_tax_number\": \"00000000000\",\n    \"sender_tax_place\": \"Örnek Vergi Dairesi\",\n    \"sender_address\": \"Örnek Mahallesi Örnek Sokak No 1\",\n    \"sender_state\": \"İSTANBUL\",\n    \"sender_city\": \"ÜSKÜDAR\"\n  },\n  \"buyer\": {\n    \"buyer_name\": \"Örnek Kullanıcı\",\n    \"buyer_email\": \"test@example.com\",\n    \"buyer_phone\": \"0555000000\",\n    \"buyer_phone2\": null,\n    \"buyer_tax_number\": null,\n    \"buyer_tax_place\": null,\n    \"buyer_address\": \"Örnek Mahallesi Test Sokak No 2\",\n    \"buyer_state\": \"İSTANBUL\",\n    \"buyer_city\": \"AVCILAR\"\n  },\n  \"pricing\": {\n    \"package_count\": 1,\n    \"estimated_price\": null,\n    \"real_price\": null,\n    \"extra_shipping_price\": \"0.0000\",\n    \"price_diff\": null\n  },\n  \"warehouse\": {\n    \"id\": 2001,\n    \"name\": \"Örnek Depo\",\n    \"is_main\": 1,\n    \"contact_name\": \"Örnek Yetkili\",\n    \"contact_phone\": \"5550000001\",\n    \"state\": \"İstanbul\",\n    \"city\": \"Üsküdar\",\n    \"address\": \"Örnek Mahallesi Depo Sokak No 3\",\n    \"phone\": null,\n    \"tax_number\": \"00000000001\",\n    \"tax_place\": \"Örnek Vergi Dairesi\"\n  },\n  \"shipment_packages\": [\n    {\n      \"desi\": \"1\",\n      \"barcode\": \"TEST1001_1\",\n      \"content\": \"Örnek İçerik ĞÜŞİÖÇ\",\n      \"real_desi\": null\n    }\n  ]\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "PATCH",
+                "description": "Yalnızca gönderilen alanları günceller; null değeri gönderilmeyen alandan farklıdır.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment\": {\n    \"buyer_email\": null\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "PATCH",
+                "description": "Yalnızca gönderilen alanları günceller; null değeri gönderilmeyen alandan farklıdır.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment\": {\n    \"buyer_email\": null\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "PATCH",
+                "description": "Yalnızca gönderilen alanları günceller; null değeri gönderilmeyen alandan farklıdır.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment\": {\n    \"buyer_email\": null\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Gönderiyi Sil",
+          "request": {
+            "method": "DELETE",
+            "description": "Silinmeye uygun gönderiyi kaldırır. Göndermeden önce etkin ortamı denetleyin.",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "shipments",
+                "{{shipmentId}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "DELETE",
+                "description": "Silinmeye uygun gönderiyi kaldırır. Göndermeden önce etkin ortamı denetleyin.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 204,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": ""
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "DELETE",
+                "description": "Silinmeye uygun gönderiyi kaldırır. Göndermeden önce etkin ortamı denetleyin.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "DELETE",
+                "description": "Silinmeye uygun gönderiyi kaldırır. Göndermeden önce etkin ortamı denetleyin.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "DELETE",
+                "description": "Silinmeye uygun gönderiyi kaldırır. Göndermeden önce etkin ortamı denetleyin.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Fiyatlandırma",
+      "item": [
+        {
+          "name": "Kargo Fiyatlarını Karşılaştır",
+          "request": {
+            "method": "GET",
+            "description": "Ondalık fiyatları ve hizmet dışı bölge metnini değiştirmeden kargo firması fiyatlarını döndürür.",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/shipment-price-comparison/{{shipmentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "shipment-price-comparison",
+                "{{shipmentId}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Ondalık fiyatları ve hizmet dışı bölge metnini değiştirmeden kargo firması fiyatlarını döndürür.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipment-price-comparison/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipment-price-comparison",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"shipping_provider_with_price\": [\n    {\n      \"id\": 3,\n      \"name\": \"Örnek Kargo\",\n      \"slug\": \"test-kargo\",\n      \"price\": \"22.67 + KDV\"\n    },\n    {\n      \"id\": 6,\n      \"name\": \"Bölge Dışı Kargo\",\n      \"slug\": \"bolge-disi\",\n      \"price\": \"Hizmet Dışı Bölge\"\n    },\n    {\n      \"id\": \"-1\",\n      \"name\": \"Otomatik\",\n      \"slug\": \"otomatik\",\n      \"price\": null\n    }\n  ],\n  \"shipment\": {\n    \"id\": 1001,\n    \"type\": \"shipment\",\n    \"status\": \"draft\",\n    \"status_label\": \"Taslak\",\n    \"package_count\": 1,\n    \"extra_shipping_price\": \"0.0000\",\n    \"buyer_name\": \"Örnek Kullanıcı\",\n    \"created_at\": \"2026-09-11T10:15:30.000000+03:00\",\n    \"updated_at\": \"2026-09-11T10:16:00.000000+03:00\",\n    \"shipment_packages\": []\n  }\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Ondalık fiyatları ve hizmet dışı bölge metnini değiştirmeden kargo firması fiyatlarını döndürür.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipment-price-comparison/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipment-price-comparison",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Ondalık fiyatları ve hizmet dışı bölge metnini değiştirmeden kargo firması fiyatlarını döndürür.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipment-price-comparison/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipment-price-comparison",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Ondalık fiyatları ve hizmet dışı bölge metnini değiştirmeden kargo firması fiyatlarını döndürür.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipment-price-comparison/{{shipmentId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipment-price-comparison",
+                    "{{shipmentId}}"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Kargo İşlemleri",
+      "item": [
+        {
+          "name": "Confirm Kargo İşlemleri Provider",
+          "request": {
+            "method": "POST",
+            "description": "Kargo firmasını multipart form verisiyle onaylar. -1 değeri otomatik seçim ister.",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "shipment_id",
+                  "value": "{{shipmentId}}",
+                  "type": "text"
+                },
+                {
+                  "key": "shipping_provider_id",
+                  "value": "-1",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/confirm-shipping-price",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "confirm-shipping-price"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Kargo firmasını multipart form verisiyle onaylar. -1 değeri otomatik seçim ister.",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "shipment_id",
+                      "value": "{{shipmentId}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "shipping_provider_id",
+                      "value": "-1",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/confirm-shipping-price",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "confirm-shipping-price"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 1001,\n  \"type\": \"shipment\",\n  \"shipping_webservice_order_id\": null,\n  \"shipping_webservice_barcode\": null,\n  \"shipping_webservice_tracking_code\": null,\n  \"shipping_provider_name\": null,\n  \"shipping_provider_slug\": null,\n  \"barcode_of_order_id\": null,\n  \"status\": \"draft\",\n  \"status_label\": \"Taslak\",\n  \"shipping_webservice_created_at\": null,\n  \"ecommerce_provider_order_no\": \"TEST-1001\",\n  \"ecommerce_provider\": \"test\",\n  \"package_count\": 1,\n  \"estimated_price\": null,\n  \"real_price\": null,\n  \"extra_shipping_price\": \"0.0000\",\n  \"buyer_name\": \"Örnek Kullanıcı\",\n  \"delivery_date_to_shipment_office\": null,\n  \"shipping_provider_customer_delivery_date\": null,\n  \"created_at\": \"2026-09-11T10:15:30.000000+03:00\",\n  \"updated_at\": \"2026-09-11T10:16:00.000000+03:00\",\n  \"sender\": {\n    \"sender_name\": \"Örnek Gönderici\",\n    \"sender_email\": \"gonderici@example.com\",\n    \"sender_phone\": \"5550000000\",\n    \"sender_phone2\": null,\n    \"sender_tax_number\": \"00000000000\",\n    \"sender_tax_place\": \"Örnek Vergi Dairesi\",\n    \"sender_address\": \"Örnek Mahallesi Örnek Sokak No 1\",\n    \"sender_state\": \"İSTANBUL\",\n    \"sender_city\": \"ÜSKÜDAR\"\n  },\n  \"buyer\": {\n    \"buyer_name\": \"Örnek Kullanıcı\",\n    \"buyer_email\": \"test@example.com\",\n    \"buyer_phone\": \"0555000000\",\n    \"buyer_phone2\": null,\n    \"buyer_tax_number\": null,\n    \"buyer_tax_place\": null,\n    \"buyer_address\": \"Örnek Mahallesi Test Sokak No 2\",\n    \"buyer_state\": \"İSTANBUL\",\n    \"buyer_city\": \"AVCILAR\"\n  },\n  \"pricing\": {\n    \"package_count\": 1,\n    \"estimated_price\": null,\n    \"real_price\": null,\n    \"extra_shipping_price\": \"0.0000\",\n    \"price_diff\": null\n  },\n  \"warehouse\": {\n    \"id\": 2001,\n    \"name\": \"Örnek Depo\",\n    \"is_main\": 1,\n    \"contact_name\": \"Örnek Yetkili\",\n    \"contact_phone\": \"5550000001\",\n    \"state\": \"İstanbul\",\n    \"city\": \"Üsküdar\",\n    \"address\": \"Örnek Mahallesi Depo Sokak No 3\",\n    \"phone\": null,\n    \"tax_number\": \"00000000001\",\n    \"tax_place\": \"Örnek Vergi Dairesi\"\n  },\n  \"shipment_packages\": [\n    {\n      \"desi\": \"1\",\n      \"barcode\": \"TEST1001_1\",\n      \"content\": \"Örnek İçerik ĞÜŞİÖÇ\",\n      \"real_desi\": null\n    }\n  ]\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Kargo firmasını multipart form verisiyle onaylar. -1 değeri otomatik seçim ister.",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "shipment_id",
+                      "value": "{{shipmentId}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "shipping_provider_id",
+                      "value": "-1",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/confirm-shipping-price",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "confirm-shipping-price"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Kargo firmasını multipart form verisiyle onaylar. -1 değeri otomatik seçim ister.",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "shipment_id",
+                      "value": "{{shipmentId}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "shipping_provider_id",
+                      "value": "-1",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/confirm-shipping-price",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "confirm-shipping-price"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Kargo firmasını multipart form verisiyle onaylar. -1 değeri otomatik seçim ister.",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "shipment_id",
+                      "value": "{{shipmentId}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "shipping_provider_id",
+                      "value": "-1",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/confirm-shipping-price",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "confirm-shipping-price"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Gönderi İptali İste",
+          "request": {
+            "method": "POST",
+            "description": "Gönderi iptal talebi oluşturur; hizmet tarafındaki işlem beklemede kalabilir.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipment_id\": \"{{shipmentId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/shipments/cancel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "shipments",
+                "cancel"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Gönderi iptal talebi oluşturur; hizmet tarafındaki işlem beklemede kalabilir.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment_id\": \"{{shipmentId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/cancel",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "cancel"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Gönderi için iptal talebiniz alındı.\",\n  \"shipment_id\": 1001\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Gönderi iptal talebi oluşturur; hizmet tarafındaki işlem beklemede kalabilir.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment_id\": \"{{shipmentId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/cancel",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "cancel"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Gönderi iptal talebi oluşturur; hizmet tarafındaki işlem beklemede kalabilir.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment_id\": \"{{shipmentId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/cancel",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "cancel"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Gönderi iptal talebi oluşturur; hizmet tarafındaki işlem beklemede kalabilir.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment_id\": \"{{shipmentId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/cancel",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "cancel"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Depolar",
+      "item": [
+        {
+          "name": "Depo Oluştur",
+          "request": {
+            "method": "POST",
+            "description": "Gönderici deposu oluşturur. POST yöntemi, hizmet belgesindeki JSON gövdeli örnekten çıkarılmıştır.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"warehouse\": {\n    \"name\": \"Örnek Depo\",\n    \"is_main\": false,\n    \"contact_name\": \"Örnek Yetkili\",\n    \"contact_phone\": \"5550000001\",\n    \"address\": \"Yalnızca entegrasyon testi için örnek adres\",\n    \"state_id\": \"{{stateId}}\",\n    \"city_id\": \"{{cityId}}\",\n    \"tax_number\": \"1234567890\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/warehouses",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "warehouses"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Gönderici deposu oluşturur. POST yöntemi, hizmet belgesindeki JSON gövdeli örnekten çıkarılmıştır.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"warehouse\": {\n    \"name\": \"Örnek Depo\",\n    \"is_main\": false,\n    \"contact_name\": \"Örnek Yetkili\",\n    \"contact_phone\": \"5550000001\",\n    \"address\": \"Yalnızca entegrasyon testi için örnek adres\",\n    \"state_id\": \"{{stateId}}\",\n    \"city_id\": \"{{cityId}}\",\n    \"tax_number\": \"1234567890\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/warehouses",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "warehouses"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 15,\n  \"name\": \"Örnek Depo\"\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Gönderici deposu oluşturur. POST yöntemi, hizmet belgesindeki JSON gövdeli örnekten çıkarılmıştır.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"warehouse\": {\n    \"name\": \"Örnek Depo\",\n    \"is_main\": false,\n    \"contact_name\": \"Örnek Yetkili\",\n    \"contact_phone\": \"5550000001\",\n    \"address\": \"Yalnızca entegrasyon testi için örnek adres\",\n    \"state_id\": \"{{stateId}}\",\n    \"city_id\": \"{{cityId}}\",\n    \"tax_number\": \"1234567890\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/warehouses",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "warehouses"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Gönderici deposu oluşturur. POST yöntemi, hizmet belgesindeki JSON gövdeli örnekten çıkarılmıştır.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"warehouse\": {\n    \"name\": \"Örnek Depo\",\n    \"is_main\": false,\n    \"contact_name\": \"Örnek Yetkili\",\n    \"contact_phone\": \"5550000001\",\n    \"address\": \"Yalnızca entegrasyon testi için örnek adres\",\n    \"state_id\": \"{{stateId}}\",\n    \"city_id\": \"{{cityId}}\",\n    \"tax_number\": \"1234567890\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/warehouses",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "warehouses"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Gönderici deposu oluşturur. POST yöntemi, hizmet belgesindeki JSON gövdeli örnekten çıkarılmıştır.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"warehouse\": {\n    \"name\": \"Örnek Depo\",\n    \"is_main\": false,\n    \"contact_name\": \"Örnek Yetkili\",\n    \"contact_phone\": \"5550000001\",\n    \"address\": \"Yalnızca entegrasyon testi için örnek adres\",\n    \"state_id\": \"{{stateId}}\",\n    \"city_id\": \"{{cityId}}\",\n    \"tax_number\": \"1234567890\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/warehouses",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "warehouses"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Barkod",
+      "item": [
+        {
+          "name": "Barkodu Getir",
+          "request": {
+            "method": "GET",
+            "description": "Hassas veri sayılan Base64 PDF barkod zarfını döndürür.",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/shipments/{{shipmentId}}/barcode?format=pdf",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "shipments",
+                "{{shipmentId}}",
+                "barcode"
+              ],
+              "query": [
+                {
+                  "key": "format",
+                  "value": "pdf",
+                  "description": "Desteklenen çıktı biçimi"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Hassas veri sayılan Base64 PDF barkod zarfını döndürür.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}/barcode?format=pdf",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}",
+                    "barcode"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "pdf",
+                      "description": "Desteklenen çıktı biçimi"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"data\": \"JVBERi0xLjQKJUZpeHR1cmUtb25seQo=\",\n  \"_fixture_note\": \"Yanıt zarfı doğrulanmamıştır; değer gerçek barkod veya müşteri verisi içermeyen küçük bir PDF benzeri örnektir.\"\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Hassas veri sayılan Base64 PDF barkod zarfını döndürür.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}/barcode?format=pdf",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}",
+                    "barcode"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "pdf",
+                      "description": "Desteklenen çıktı biçimi"
+                    }
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Hassas veri sayılan Base64 PDF barkod zarfını döndürür.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}/barcode?format=pdf",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}",
+                    "barcode"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "pdf",
+                      "description": "Desteklenen çıktı biçimi"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Hassas veri sayılan Base64 PDF barkod zarfını döndürür.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/shipments/{{shipmentId}}/barcode?format=pdf",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "shipments",
+                    "{{shipmentId}}",
+                    "barcode"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "pdf",
+                      "description": "Desteklenen çıktı biçimi"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Hesap",
+      "item": [
+        {
+          "name": "Krediyi Getir",
+          "request": {
+            "method": "GET",
+            "description": "Ondalık duyarlılığı koruyarak hesap kredisini döndürür.",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/user/credit",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "credit"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Ondalık duyarlılığı koruyarak hesap kredisini döndürür.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/user/credit",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "user",
+                    "credit"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"data\": {\n    \"credit\": 122.8\n  }\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Ondalık duyarlılığı koruyarak hesap kredisini döndürür.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/user/credit",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "user",
+                    "credit"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Ondalık duyarlılığı koruyarak hesap kredisini döndürür.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/user/credit",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "user",
+                    "credit"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Ondalık duyarlılığı koruyarak hesap kredisini döndürür.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/user/credit",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "user",
+                    "credit"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Konumlar",
+      "item": [
+        {
+          "name": "İlleri Getir",
+          "request": {
+            "method": "GET",
+            "description": "countryId değişkenine göre illeri listeler.",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/{{countryId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "{{countryId}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "GET",
+                "description": "countryId değişkenine göre illeri listeler.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/states/{{countryId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "states",
+                    "{{countryId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 34,\n      \"name\": \"İSTANBUL\"\n    },\n    {\n      \"id\": 6,\n      \"name\": \"ANKARA\"\n    }\n  ],\n  \"_fixture_note\": \"Veri biçimi teknik belgeden türetilmiştir; yanıt zarfı doğrulanmamıştır.\"\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "GET",
+                "description": "countryId değişkenine göre illeri listeler.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/states/{{countryId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "states",
+                    "{{countryId}}"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "countryId değişkenine göre illeri listeler.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/states/{{countryId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "states",
+                    "{{countryId}}"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "countryId değişkenine göre illeri listeler.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/states/{{countryId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "states",
+                    "{{countryId}}"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "İlçeleri Getir",
+          "request": {
+            "method": "GET",
+            "description": "stateId değişkenine göre ilçeleri listeler.",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cities/{{stateId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cities",
+                "{{stateId}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "GET",
+                "description": "stateId değişkenine göre ilçeleri listeler.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/cities/{{stateId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "cities",
+                    "{{stateId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 828,\n      \"state_id\": 34,\n      \"name\": \"ÜSKÜDAR\"\n    },\n    {\n      \"id\": 662,\n      \"state_id\": 34,\n      \"name\": \"AVCILAR\"\n    }\n  ],\n  \"_fixture_note\": \"Veri biçimi teknik belgeden türetilmiştir; yanıt zarfı doğrulanmamıştır.\"\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "GET",
+                "description": "stateId değişkenine göre ilçeleri listeler.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/cities/{{stateId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "cities",
+                    "{{stateId}}"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "stateId değişkenine göre ilçeleri listeler.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/cities/{{stateId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "cities",
+                    "{{stateId}}"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "stateId değişkenine göre ilçeleri listeler.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/cities/{{stateId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "cities",
+                    "{{stateId}}"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Webhook Abonelikleri",
+      "item": [
+        {
+          "name": "Webhook Aboneliklerini Listele",
+          "request": {
+            "method": "GET",
+            "description": "Yapılandırılmış webhook aboneliklerini listeler.",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/webhooks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Yapılandırılmış webhook aboneliklerini listeler.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 3001,\n      \"name\": \"Örnek Gönderi Webhook'u\",\n      \"url\": \"https://example.com/hooks/shipment\",\n      \"event_type\": \"shipment.updated\",\n      \"is_active\": true\n    }\n  ],\n  \"_fixture_note\": \"Yönetim yanıtının zarf biçimi resmî teknik belgede doğrulanmamıştır.\"\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Yapılandırılmış webhook aboneliklerini listeler.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Yapılandırılmış webhook aboneliklerini listeler.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "Yapılandırılmış webhook aboneliklerini listeler.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Webhook Getir",
+          "request": {
+            "method": "GET",
+            "description": "webhookId değişkenine göre tek bir webhook getirir.",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/webhooks/{{webhookId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks",
+                "{{webhookId}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "GET",
+                "description": "webhookId değişkenine göre tek bir webhook getirir.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/{{webhookId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    "{{webhookId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 3001,\n  \"name\": \"Örnek Gönderi Webhook'u\",\n  \"url\": \"https://example.com/hooks/shipment\",\n  \"event_type\": \"shipment.updated\",\n  \"is_active\": true,\n  \"_fixture_note\": \"Yönetim yanıtının zarf biçimi resmî teknik belgede doğrulanmamıştır.\"\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "GET",
+                "description": "webhookId değişkenine göre tek bir webhook getirir.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/{{webhookId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    "{{webhookId}}"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "webhookId değişkenine göre tek bir webhook getirir.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/{{webhookId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    "{{webhookId}}"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "GET",
+                "description": "webhookId değişkenine göre tek bir webhook getirir.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/{{webhookId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    "{{webhookId}}"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Webhook Oluştur",
+          "request": {
+            "method": "POST",
+            "description": "Erişilebilir bir HTTPS adresini hedefleyen abonelik oluşturur.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Gönderi güncellemeleri\",\n  \"url\": \"{{webhookUrl}}\",\n  \"event_type\": \"shipment.updated\",\n  \"is_active\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/webhooks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Erişilebilir bir HTTPS adresini hedefleyen abonelik oluşturur.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Gönderi güncellemeleri\",\n  \"url\": \"{{webhookUrl}}\",\n  \"event_type\": \"shipment.updated\",\n  \"is_active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 3001,\n  \"name\": \"Örnek Gönderi Webhook'u\",\n  \"url\": \"https://example.com/hooks/shipment\",\n  \"event_type\": \"shipment.updated\",\n  \"is_active\": true,\n  \"_fixture_note\": \"Yönetim yanıtının zarf biçimi resmî teknik belgede doğrulanmamıştır.\"\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Erişilebilir bir HTTPS adresini hedefleyen abonelik oluşturur.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Gönderi güncellemeleri\",\n  \"url\": \"{{webhookUrl}}\",\n  \"event_type\": \"shipment.updated\",\n  \"is_active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Erişilebilir bir HTTPS adresini hedefleyen abonelik oluşturur.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Gönderi güncellemeleri\",\n  \"url\": \"{{webhookUrl}}\",\n  \"event_type\": \"shipment.updated\",\n  \"is_active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "POST",
+                "description": "Erişilebilir bir HTTPS adresini hedefleyen abonelik oluşturur.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Gönderi güncellemeleri\",\n  \"url\": \"{{webhookUrl}}\",\n  \"event_type\": \"shipment.updated\",\n  \"is_active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Webhook Güncelle",
+          "request": {
+            "method": "PUT",
+            "description": "Webhook aboneliğini bütünüyle değiştirir. Kimlik içeren yol, hizmet örneklerinden çıkarılmıştır.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Gönderi güncellemeleri\",\n  \"url\": \"{{webhookUrl}}\",\n  \"event_type\": \"shipment.updated\",\n  \"is_active\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/webhooks/{{webhookId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks",
+                "{{webhookId}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "PUT",
+                "description": "Webhook aboneliğini bütünüyle değiştirir. Kimlik içeren yol, hizmet örneklerinden çıkarılmıştır.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Gönderi güncellemeleri\",\n  \"url\": \"{{webhookUrl}}\",\n  \"event_type\": \"shipment.updated\",\n  \"is_active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/{{webhookId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    "{{webhookId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 3001,\n  \"name\": \"Örnek Gönderi Webhook'u\",\n  \"url\": \"https://example.com/hooks/shipment\",\n  \"event_type\": \"shipment.updated\",\n  \"is_active\": true,\n  \"_fixture_note\": \"Yönetim yanıtının zarf biçimi resmî teknik belgede doğrulanmamıştır.\"\n}"
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "PUT",
+                "description": "Webhook aboneliğini bütünüyle değiştirir. Kimlik içeren yol, hizmet örneklerinden çıkarılmıştır.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Gönderi güncellemeleri\",\n  \"url\": \"{{webhookUrl}}\",\n  \"event_type\": \"shipment.updated\",\n  \"is_active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/{{webhookId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    "{{webhookId}}"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "PUT",
+                "description": "Webhook aboneliğini bütünüyle değiştirir. Kimlik içeren yol, hizmet örneklerinden çıkarılmıştır.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Gönderi güncellemeleri\",\n  \"url\": \"{{webhookUrl}}\",\n  \"event_type\": \"shipment.updated\",\n  \"is_active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/{{webhookId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    "{{webhookId}}"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "PUT",
+                "description": "Webhook aboneliğini bütünüyle değiştirir. Kimlik içeren yol, hizmet örneklerinden çıkarılmıştır.",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Gönderi güncellemeleri\",\n  \"url\": \"{{webhookUrl}}\",\n  \"event_type\": \"shipment.updated\",\n  \"is_active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/{{webhookId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    "{{webhookId}}"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Webhook Sil",
+          "request": {
+            "method": "DELETE",
+            "description": "webhookId değişkenine göre webhook aboneliğini siler.",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/webhooks/{{webhookId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks",
+                "{{webhookId}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Başarılı",
+              "originalRequest": {
+                "method": "DELETE",
+                "description": "webhookId değişkenine göre webhook aboneliğini siler.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/{{webhookId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    "{{webhookId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 204,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": ""
+            },
+            {
+              "name": "Yetkisiz",
+              "originalRequest": {
+                "method": "DELETE",
+                "description": "webhookId değişkenine göre webhook aboneliğini siler.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/{{webhookId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    "{{webhookId}}"
+                  ]
+                }
+              },
+              "status": "Yetkisiz",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Yetkisiz\"\n}"
+            },
+            {
+              "name": "Doğrulama hatası",
+              "originalRequest": {
+                "method": "DELETE",
+                "description": "webhookId değişkenine göre webhook aboneliğini siler.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/{{webhookId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    "{{webhookId}}"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Doğrulama başarısız oldu\",\n  \"errors\": {\n    \"field\": [\n      \"Alan geçersiz.\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "Hizmet hatası",
+              "originalRequest": {
+                "method": "DELETE",
+                "description": "webhookId değişkenine göre webhook aboneliğini siler.",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/{{webhookId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    "{{webhookId}}"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Kargonomi isteği tamamlanamadı.\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
