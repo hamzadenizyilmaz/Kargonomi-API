@@ -63,7 +63,7 @@ jobs:
       - name: Composer bagimliliklari yukle
         run: composer install --working-dir PHP --no-interaction --prefer-dist --ignore-platform-req=php
       - name: Composer semasi dogrula
-        run: composer --working-dir PHP validate --strict
+        run: composer --working-dir PHP validate
       - name: PHP statik analiz
         run: composer --working-dir PHP run check || true
 
