@@ -2,11 +2,11 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Kargonomi API",
-    "version": "0.1.0",
+    "version": "2.5.0",
     "description": "Ortak API sözleşmesiyle uyumlu bağımsız geliştirici başvurusu. Belgelenmeyen hizmet alanları geriye uyumluluk için korunur. Belirsiz davranışlarda x-provider-ambiguity alanlarını inceleyin.",
     "license": {
-      "name": "MIT",
-      "identifier": "MIT"
+      "name": "GNU General Public License v3.0",
+      "identifier": "GPL-3.0-only"
     },
     "contact": {
       "name": "hamzadenizyilmaz ve beyzagul02",
@@ -1208,7 +1208,7 @@
             "$ref": "#/components/responses/ProviderError"
           }
         },
-        "x-provider-ambiguity": "HTTP method inferred as POST from the provider request body example."
+        "x-provider-ambiguity": "HTTP y\u00f6ntemi, sa\u011flay\u0131c\u0131n\u0131n istek g\u00f6vdesi \u00f6rne\u011finden POST olarak \u00e7\u0131kar\u0131lm\u0131\u015ft\u0131r."
       }
     },
     "/shipments/{id}/barcode": {
@@ -1217,7 +1217,7 @@
         "tags": [
           "Barkod"
         ],
-        "summary": "Gönderiyi getir barcode",
+        "summary": "G\u00f6nderi barkodunu indir",
         "description": "Base64 ile kodlanmış PDF barkod zarfını döndürür. İçerik hassas ikili veri olarak işlenmelidir.",
         "security": [
           {
@@ -1793,7 +1793,7 @@
             "$ref": "#/components/responses/ProviderError"
           }
         },
-        "x-provider-ambiguity": "Path ID inferred from the provider example."
+        "x-provider-ambiguity": "Yol kimli\u011fi, sa\u011flay\u0131c\u0131n\u0131n \u00f6rne\u011finden \u00e7\u0131kar\u0131lm\u0131\u015ft\u0131r."
       },
       "delete": {
         "operationId": "webhooks.delete",
@@ -1836,7 +1836,7 @@
             "$ref": "#/components/responses/ProviderError"
           }
         },
-        "x-provider-ambiguity": "Path ID inferred from the provider example."
+        "x-provider-ambiguity": "Yol kimli\u011fi, sa\u011flay\u0131c\u0131n\u0131n \u00f6rne\u011finden \u00e7\u0131kar\u0131lm\u0131\u015ft\u0131r."
       }
     }
   },
@@ -1879,7 +1879,7 @@
               "success": {
                 "summary": "Başarılı yanıt",
                 "value": {
-                  "message": "Resource not found"
+                  "message": "Kaynak bulunamad\u0131"
                 }
               }
             }
@@ -1900,7 +1900,7 @@
                   "message": "Doğrulama başarısız oldu",
                   "errors": {
                     "buyer_phone": [
-                      "Must contain exactly 10 digits."
+                      "Tam olarak 10 rakam i\u00e7ermelidir."
                     ]
                   }
                 }
@@ -1920,7 +1920,7 @@
               "success": {
                 "summary": "Başarılı yanıt",
                 "value": {
-                  "message": "Too many requests"
+                  "message": "\u00c7ok fazla istek g\u00f6nderildi"
                 }
               }
             }

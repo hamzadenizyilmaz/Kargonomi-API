@@ -27,7 +27,7 @@
       "name": "Gönderiler",
       "item": [
         {
-          "name": "List Gönderiler",
+          "name": "Gönderileri Listele",
           "request": {
             "method": "GET",
             "description": "Gönderileri birden başlayan sayfalandırmayla listeler. Bu okuma isteği sınırlı sayıda yeniden gönderilebilir.",
@@ -1239,7 +1239,7 @@
       "name": "Kargo İşlemleri",
       "item": [
         {
-          "name": "Confirm Kargo İşlemleri Provider",
+          "name": "Kargo Firmasını Onayla",
           "request": {
             "method": "POST",
             "description": "Kargo firmasını multipart form verisiyle onaylar. -1 değeri otomatik seçim ister.",
