@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '22'
       - name: OpenAPI JSON gecerlilik denetimi
         run: npm run openapi:check
       - name: Postman JSON gecerlilik denetimi
@@ -31,9 +31,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '24'
-          cache: 'npm'
-          cache-dependency-path: NodeJS/package-lock.json
+          node-version: '22'
       - name: Bagimliliklari yukle
         run: npm ci --prefix NodeJS
       - name: Kod bicimi ve tur denetimi
@@ -60,7 +58,9 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.5'
-      - name: Composer bagimlilikları yukle
+          extensions: curl, json
+          tools: composer:v2
+      - name: Composer bagimliliklari yukle
         run: composer install --working-dir PHP --no-interaction --prefer-dist
       - name: Composer semasi dogrula
         run: composer --working-dir PHP validate --strict
