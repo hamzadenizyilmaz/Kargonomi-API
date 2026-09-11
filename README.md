@@ -4,7 +4,7 @@
   <a href="https://www.kargonomi.com.tr/"><img src="assets/branding/kargonomi-logo.png" alt="Kargonomi logosu" height="62"></a>
 </p>
 
-<h1 align="center">Kargonomi API — Kurumsal Çok Dilli SDK</h1>
+<h1 align="center">Kargonomi API - Kurumsal Dilli SDK</h1>
 
 <p align="center">
   ASP.NET Core, Node.js, PHP ve Python istemci kitaplıkları.<br>
