@@ -1,77 +1,75 @@
 <p align="center">
-  <a href="https://www.bilhost.com/"><img src="assets/branding/bilhost-logo.svg" alt="Bilhost logosu" height="62"></a>
+  <a href="https://www.bilhost.com/"><img src="assets/branding/bilhost-logo.svg" alt="Bilhost" height="58"></a>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://www.kargonomi.com.tr/"><img src="assets/branding/kargonomi-logo.png" alt="Kargonomi logosu" height="62"></a>
+  <a href="https://www.kargonomi.com.tr/"><img src="assets/branding/kargonomi-logo.png" alt="Kargonomi" height="58"></a>
 </p>
 
-<h1 align="center">Kargonomi API - Kurumsal Dilli SDK</h1>
+<h1 align="center">Kargonomi API SDK</h1>
 
 <p align="center">
-  ASP.NET Core, Node.js, PHP ve Python istemci kitaplıkları.<br>
-  <strong>Ürün sürümü: 2.5.0-Enterprise / Lisans: GPL-3.0</strong>
+  Kargonomi API için ASP.NET Core, Node.js, PHP ve Python istemcileri
 </p>
 
-> Bu depo, Hamza Deniz Yılmaz ve Beyza Gül tarafından geliştirilen bağımsız bir açık kaynak entegrasyonudur. Kargonomi'nin resmî yazılım geliştirme kiti değildir. Kargonomi API davranışı için yetkili kaynak, Kargonomi'nin güncel teknik belgeleridir.
+<p align="center">
+  <img src="https://img.shields.io/badge/sürüm-2.5.0--Enterprise-1f6feb" alt="Sürüm 2.5.0-Enterprise">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/lisans-GPL--3.0-blue" alt="GPL-3.0 lisansı"></a>
+</p>
 
-## İçindekiler
+Bu depo, aynı Kargonomi API işlemlerini dört farklı yazılım ortamından kullanmak için hazırlanan istemci kitaplıklarını içerir. Gönderi, fiyatlandırma, depo, konum, barkod, hesap ve webhook işlemleri her istemcide benzer bir arayüzle sunulur.
 
-- [Proje amacı](#proje-amacı)
-- [Desteklenen işlemler](#desteklenen-işlemler)
-- [Sistem gereksinimleri](#sistem-gereksinimleri)
-- [Kurulum ve kullanım](#kurulum-ve-kullanım)
-- [Merkezi API yapılandırması](#merkezi-api-yapılandırması)
-- [MSSQL veritabanları](#mssql-veritabanları)
-- [Güvenlik ilkeleri](#güvenlik-ilkeleri)
-- [Yerel doğrulama komutları](#yerel-doğrulama-komutları)
-- [Sürüm ve lisans gösterimi](#sürüm-ve-lisans-gösterimi)
-- [Geliştiriciler ve marka bilgileri](#geliştiriciler-ve-marka-bilgileri)
-- [Proje belgeleri](#proje-belgeleri)
+Proje Hamza Deniz Yılmaz ve Beyza Gül tarafından geliştirilmektedir. Kargonomi'nin resmî SDK'sı değildir; API'nin güncel davranışı ve kullanım koşulları için Kargonomi belgeleri esas alınmalıdır.
 
-## Proje amacı
+## Depo yapısı
 
-Bu çalışma alanı, Kargonomi API işlemlerini farklı yazılım dillerinde tutarlı ve güvenli biçimde kullanmak için hazırlanmıştır. Her istemci kendi ekosisteminin kurallarına uyar; buna karşılık HTTP yöntemleri, uç noktalar, kimlik doğrulama, veri modelleri ve hata davranışları ortak API sözleşmesiyle eşleştirilir.
-
-Temel tasarım ilkeleri şunlardır:
-
-- API anahtarı kaynak kodunda veya ayar dosyalarında tutulmaz.
-- Temel API adresi yalnızca ilgili `appsettings.json` dosyasından okunur.
-- Düz HTTP bağlantıları ve farklı bir etki alanına yönlendiren istekler reddedilir.
-- Veri değiştiren istekler otomatik olarak yeniden gönderilmez.
-- Kimlik, telefon, vergi numarası ve barkod gibi değerler baştaki sıfırlar korunacak biçimde metin olarak işlenir.
-- Yeni hizmet durumu veya olay türü geldiğinde ham değer korunur; istemci gereksiz yere çalışmayı durdurmaz.
-- Uygulamalar veritabanı oluşturmaz, şema güncellemez ve Entity Framework kullanmaz.
-
-Depo; SDK geliştirme, API sözleşmesinin incelenmesi ve MSSQL şemasının elle kurulması için gereken kaynakları içerir. Sunucu yönetimi ve uzak hizmet kurulum süreçleri bu deponun kapsamı dışındadır.
+| Dizin | İçerik |
+|---|---|
+| `ASP.net/` | .NET 10 istemcisi ve ASP.NET Core bütünleştirmesi |
+| `NodeJS/` | Node.js 24 ve TypeScript istemcisi |
+| `PHP/` | PHP 8.5 istemcisi |
+| `Python/` | Eşzamanlı ve eşzamansız Python 3.14 istemcisi |
+| `Swagger/` | OpenAPI 3.1 tanımları, şemalar ve örnek yanıtlar |
+| `Postman/` | Postman koleksiyonu ve ortam dosyası |
 
 ## Desteklenen işlemler
 
-| Alan | İşlemler |
+| Kaynak | İşlemler |
 |---|---|
-| Gönderiler | Listeleme, ayrıntı görüntüleme, oluşturma, tam güncelleme, kısmi güncelleme ve silme |
-| Fiyatlandırma | Kargo fiyatlarını karşılaştırma ve seçilen kargo firmasını onaylama |
-| İptal | Gönderi iptal talebi oluşturma |
+| Gönderiler | Listeleme, görüntüleme, oluşturma, güncelleme, kısmi güncelleme, iptal ve silme |
+| Fiyatlandırma | Fiyat karşılaştırma ve kargo firması seçimini onaylama |
 | Depolar | Depo oluşturma |
-| Barkod | Gönderi barkodunu alma |
+| Konumlar | İl ve ilçe listelerini alma |
+| Barkod | Gönderi barkodunu PDF olarak alma |
 | Hesap | Kullanılabilir kredi bilgisini alma |
-| Konumlar | Ülkeye bağlı illeri ve ile bağlı ilçeleri alma |
-| Webhook | Listeleme, ayrıntı görüntüleme, oluşturma, güncelleme ve silme |
+| Webhook'lar | Listeleme, görüntüleme, oluşturma, güncelleme ve silme |
 
-Makine tarafından okunabilir uç nokta listesi `Swagger/Contracts/endpoint-catalog.json` dosyasındadır. Depo oluşturma ile webhook güncelleme ve silme davranışlarında hizmet belgesinden kaynaklanan belirsizlikler katalogda ayrıca işaretlenmiştir.
+Uç noktaların tamamı [`Swagger/Contracts/endpoint-catalog.json`](Swagger/Contracts/endpoint-catalog.json) dosyasında, API sözleşmesi ise [`Swagger/kargonomi-openapi.yaml`](Swagger/kargonomi-openapi.yaml) ve [`Swagger/kargonomi-openapi.json`](Swagger/kargonomi-openapi.json) dosyalarında bulunur.
 
-## Sistem gereksinimleri
+## Gereksinimler
 
-| Bileşen | Gerekli sürüm |
+Yalnızca kullanacağınız istemcinin araçlarını kurmanız yeterlidir.
+
+| İstemci | Gereksinim |
 |---|---|
-| .NET SDK | 10.0 veya üzeri |
-| Node.js | 24 veya üzeri |
-| npm | 12 veya üzeri |
-| PHP | 8.5 veya üzeri |
-| Composer | 2.10 veya üzeri |
-| Python | 3.14 veya üzeri |
-| `uv` | Güncel kararlı sürüm |
-| SQL Server | SQL Server 2016 SP1 veya üzeri; Azure SQL ile uyumlu özellikler |
+| ASP.NET Core | .NET SDK 10 veya üzeri |
+| Node.js | Node.js 24 ve npm 12 veya üzeri |
+| PHP | PHP 8.5, Composer 2.10, cURL ve JSON eklentileri |
+| Python | Python 3.14 ve güncel bir `uv` sürümü |
+| Veritabanı | SQL Server 2016 SP1 veya üzeri ya da Azure SQL |
 
-## Kurulum ve kullanım
+## Yapılandırma
+
+Her istemci temel API adresini kendi `appsettings.json` dosyasından okur:
+
+| İstemci | Yapılandırma dosyası |
+|---|---|
+| ASP.NET Core | `ASP.net/KargonomiAsp/appsettings.json` |
+| Node.js | `NodeJS/appsettings.json` |
+| PHP | `PHP/appsettings.json` |
+| Python | `Python/src/kargonomi/appsettings.json` |
+
+API anahtarını bu dosyalara veya kaynak koda yazmayın. Anahtarı ortam değişkeninden ya da kullandığınız sistemin gizli bilgi yöneticisinden alın.
+
+## Kurulum ve ilk kullanım
 
 ### Node.js ve TypeScript
 
@@ -88,8 +86,8 @@ const client = new KargonomiClient({
   apiToken: process.env.KARGONOMI_API_TOKEN!,
 });
 
-const page = await client.shipments.list();
-console.log(page.total);
+const shipments = await client.shipments.list();
+console.log(shipments.total);
 ```
 
 ### ASP.NET Core
@@ -99,12 +97,24 @@ dotnet restore ASP.net/KargonomiAsp.sln --locked-mode
 dotnet build ASP.net/KargonomiAsp.sln --no-restore
 ```
 
+İstemciyi bağımlılık enjeksiyonu konteynerine kaydedin:
+
 ```csharp
 builder.Services.AddKargonomi(options =>
 {
-    options.ApiToken = builder.Configuration["KARGONOMI_API_TOKEN"]!;
+    options.ApiToken = builder.Configuration["Kargonomi:ApiToken"]!;
     options.BaseUri = builder.Configuration.GetValue<Uri>("Kargonomi:BaseUrl")!;
 });
+```
+
+API anahtarı ASP.NET Core yapılandırmasına `Kargonomi__ApiToken` ortam değişkeniyle verilebilir.
+
+```csharp
+public sealed class ShipmentsService(KargonomiClient client)
+{
+    public Task<ShipmentPage> ListAsync(CancellationToken cancellationToken) =>
+        client.Shipments.ListAsync(cancellationToken: cancellationToken);
+}
 ```
 
 ### PHP
@@ -115,10 +125,16 @@ composer install
 ```
 
 ```php
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
 use Kargonomi\KargonomiClient;
 
 $client = new KargonomiClient((string) getenv('KARGONOMI_API_TOKEN'));
-$page = $client->shipments()->list();
+$shipments = $client->shipments()->list();
+
+echo $shipments->total;
 ```
 
 ### Python
@@ -130,110 +146,91 @@ uv sync
 
 ```python
 import os
+
 from kargonomi import KargonomiClient
 
 with KargonomiClient(os.environ["KARGONOMI_API_TOKEN"]) as client:
-    print(client.shipments.list().total)
+    shipments = client.shipments.list()
+    print(shipments.total)
 ```
 
-## Merkezi API yapılandırması
+Python istemcisi, aynı kaynaklar için `AsyncKargonomiClient` sınıfını da sağlar.
 
-Temel API adresi kaynak kodunda sabit olarak bulunmaz. Her bileşen bu değeri kendi `appsettings.json` dosyasından okur.
+## MSSQL şemaları
 
-| Bileşen | Ayar dosyası | JSON anahtarı |
+İstemciler veritabanı oluşturmaz ve şema değişikliği çalıştırmaz. Gerekli T-SQL dosyaları bir SQL Server yöneticisi tarafından elle uygulanmalıdır.
+
+| İstemci | Kurulum dosyası | Veritabanı |
 |---|---|---|
-| ASP.NET Core | `ASP.net/KargonomiAsp/appsettings.json` | `Kargonomi:BaseUrl` |
-| Node.js | `NodeJS/appsettings.json` | `Kargonomi.BaseUrl` |
-| PHP | `PHP/appsettings.json` | `Kargonomi.BaseUrl` |
-| Python | `Python/src/kargonomi/appsettings.json` | `Kargonomi.BaseUrl` |
+| ASP.NET Core | [`Database_Asp.sql`](ASP.net/KargonomiAsp/Database/Database_Asp.sql) | `Kargonomi_Asp` |
+| Node.js | [`Database_JS.sql`](NodeJS/Database/Database_JS.sql) | `Kargonomi_JS` |
+| PHP | [`Database_PHP.sql`](PHP/Database/Database_PHP.sql) | `Kargonomi_PHP` |
 
-Yapılandırılan adres:
+Her şemada uygulama bilgileri, webhook olayları ve API istek kayıtları için tablolar bulunur. Kurulum dosyaları nesnelerin varlığını denetler ve mevcut tabloları silmez. API anahtarları ile müşteri bilgileri SQL dosyalarına eklenmemiştir.
 
-```text
-https://app.kargonomi.com.tr/api/v1/
-```
+## Postman kullanımı
 
-Özel bir adres kullanılacaksa HTTPS olmalı ve geçerli bir mutlak adres içermelidir. İstek yolu, yapılandırılan etki alanının dışına çıkamaz. API anahtarı ayar dosyasına eklenmemeli; `KARGONOMI_API_TOKEN` ortam değişkeni veya işletim sisteminin güvenli kimlik bilgisi saklama alanı kullanılmalıdır.
+1. [`Kargonomi.postman_collection.json`](Postman/Kargonomi.postman_collection.json) koleksiyonunu içe aktarın.
+2. [`Kargonomi.postman_environment.json`](Postman/Kargonomi.postman_environment.json) ortam dosyasını içe aktarın.
+3. API anahtarını yalnız kendi Postman ortamınızın gizli değişkenine girin.
+4. Veri oluşturan, güncelleyen veya silen istekleri göndermeden önce seçili ortamı ve isteği kontrol edin.
 
-## MSSQL veritabanları
+Depodaki Postman dosyalarında geçerli API anahtarı veya müşteri verisi bulunmaz.
 
-Projede SQLite, Entity Framework, otomatik şema geçişi veya uygulama çalışırken veritabanı hazırlayan bir bileşen yoktur. Her teknoloji için tek bir T-SQL kurulum dosyası bulunur.
+## Doğrulama
 
-| Bileşen | SQL dosyası | Veritabanı adı |
-|---|---|---|
-| Node.js | `NodeJS/Database/Database_JS.sql` | `Kargonomi_JS` |
-| PHP | `PHP/Database/Database_PHP.sql` | `Kargonomi_PHP` |
-| ASP.NET Core | `ASP.net/KargonomiAsp/Database/Database_Asp.sql` | `Kargonomi_Asp` |
-
-Bu dosyalar SQL Server Management Studio veya Azure Data Studio üzerinden bir SQL Server yöneticisi tarafından elle çalıştırılır. Her dosya aşağıdaki nesneleri oluşturur:
-
-| Nesne | Amaç |
-|---|---|
-| `ApplicationMetadata` | Ürün adı, sürüm, lisans ve geliştirici bilgilerini saklar. |
-| `WebhookEvents` | Webhook içeriğini, işleme durumunu ve benzersiz tekrar önleme anahtarını saklar. |
-| `ApiRequestLogs` | API isteği için yöntem, yol, durum kodu, süre ve zaman bilgisini saklar. |
-
-Şemalarda JSON geçerlilik denetimi, benzersiz `IdempotencyKey` kısıtı, UTC zaman alanları, `ROWVERSION` eşzamanlılık alanı ve sorgu amaçlı dizinler bulunur. SQL dosyaları nesnelerin varlığını denetlediği için aynı kurulum üzerinde yeniden çalıştırılabilir. API anahtarı ve müşteri bilgileri SQL dosyalarına yazılmaz.
-
-Uygulama hesabına `CREATE DATABASE` yetkisi verilmemelidir. Kurulumdan sonra uygulama hesabı yalnızca ihtiyaç duyduğu tablo ve işlemler için en düşük yetkiyle sınırlandırılmalıdır.
-
-## Güvenlik ilkeleri
-
-- API anahtarı ve webhook gizli anahtarı Git geçmişine, günlük kayıtlarına, ekran görüntülerine veya destek kayıtlarına eklenmez.
-- Webhook imzası, JSON ayrıştırılmadan önce alınan ham istek gövdesinin baytları üzerinden HMAC-SHA256 ile doğrulanır.
-- İmza karşılaştırmasında zamanlama saldırılarına dayanıklı, sabit süreli karşılaştırma kullanılır.
-- `POST`, `PUT`, `PATCH` ve `DELETE` istekleri otomatik olarak yeniden gönderilmez.
-- Yönlendirme izlenmez; böylece yetkilendirme başlığının farklı bir etki alanına taşınması engellenir.
-- Tanılama kayıtlarında API anahtarı, gizli anahtar, adres, telefon ve diğer kişisel veriler maskelenir.
-
-Bir güvenlik açığı bildirmeden önce [SECURITY.md](SECURITY.md) belgesini okuyun. Gerçek müşteri verilerini veya geçerli erişim bilgilerini açık bir GitHub kaydına eklemeyin.
-
-## Yerel doğrulama komutları
-
-Aşağıdaki komutlar kaynak kodu ve makine tarafından okunabilir belgeleri yerel çalışma ortamında doğrular:
+Bir istemcide değişiklik yaptıktan sonra ilgili komutları çalıştırın:
 
 ```powershell
+# Node.js
 npm ci --prefix NodeJS
 npm --prefix NodeJS run verify
+
+# OpenAPI ve Postman JSON dosyaları
 npm run openapi:check
 npm run postman:check
+
+# ASP.NET Core
 dotnet restore ASP.net/KargonomiAsp.sln --locked-mode
 dotnet build ASP.net/KargonomiAsp.sln --no-restore
+
+# PHP
 composer --working-dir PHP validate --strict
 composer --working-dir PHP check
+
+# Python
 uv run --directory Python ruff check .
 uv run --directory Python mypy
 uv build --directory Python
 ```
 
-Bu komutlar Node.js kod biçimini ve türlerini denetler, istemci kitaplığını derler, paket içeriğini kontrol eder ve OpenAPI ile Postman JSON dosyalarını ayrıştırır. Gerçek bir Kargonomi hesabında veri değiştiren istek gönderilmez.
+Bu kontroller gerçek Kargonomi hesabına istek göndermez.
 
-## Sürüm ve lisans gösterimi
+## Güvenlik
 
-Projenin kullanıcıya gösterilen sürümü `2.5.0-Enterprise`, lisansı GPL-3.0'dır.
+- API anahtarlarını, webhook gizli anahtarlarını ve müşteri verilerini Git geçmişine eklemeyin.
+- Webhook imzasını JSON ayrıştırılmadan önce, alınan ham istek gövdesi üzerinden doğrulayın.
+- İstemciler yönlendirmeleri izlemez ve yalnız HTTPS temel adreslerini kabul eder.
+- Otomatik yeniden deneme yalnız güvenli `GET` isteklerinde uygulanır.
 
-Python ve Composer sürüm kuralları `2.5.0-Enterprise` biçimini kabul etmediği için bu iki paket tanımında standartlara uygun `2.5.0+enterprise` değeri kullanılır. PHP paketindeki `extra.product-version` alanı ürün sürümünü değiştirmeden korur.
+Bir güvenlik açığı bulduysanız herkese açık issue oluşturmadan önce [SECURITY.md](SECURITY.md) içindeki bildirim yolunu kullanın.
 
-Paket tanımları, güncel SPDX karşılığı olan `GPL-3.0-only` ifadesini kullanır. Bu ifade, depodaki `LICENSE` dosyasında bulunan GNU General Public License 3.0 metniyle uyumludur.
+## Belgeler
 
-## Geliştiriciler ve marka bilgileri
+- [Katkı rehberi](CONTRIBUTING.md)
+- [Güvenlik politikası](SECURITY.md)
+- [Değişiklik geçmişi](CHANGELOG.md)
+- [Davranış kuralları](CODE_OF_CONDUCT.md)
+- [OpenAPI tanımı](Swagger/kargonomi-openapi.yaml)
+- [Postman koleksiyonu](Postman/Kargonomi.postman_collection.json)
 
-- [Hamza Deniz Yılmaz](https://github.com/hamzadenizyilmaz) Proje sahibi ve geliştirici
-- [Beyza Gül](https://github.com/beyzagul02) Geliştirici ve katkı sahibi
-- [Bilhost](https://www.bilhost.com/) Proje destekçisi
-- [Kargonomi](https://www.kargonomi.com.tr/) Entegre edilen hizmetin markası
+## Geliştiriciler
 
-Bilhost ve Kargonomi adları ile logoları kendi hak sahiplerine aittir. Bu varlıkların depoda bulunması yalnızca destek ve entegrasyon ilişkisini açıklar; projeye resmî ürün niteliği kazandırmaz.
+- [Hamza Deniz Yılmaz](https://github.com/hamzadenizyilmaz)
+- [Beyza Gül](https://github.com/beyzagul02)
 
-## Proje belgeleri
+Proje [Bilhost](https://www.bilhost.com/) desteğiyle geliştirilmektedir. Kargonomi adı ve logosu Kargonomi'ye, Bilhost adı ve logosu Bilhost'a aittir.
 
-| Belge | İçerik |
-|---|---|
-| [SECURITY.md](SECURITY.md) | Güvenlik açığı bildirme süreci ve güvenli kullanım kuralları |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | Katkı hazırlama, kod ilkeleri ve değişiklik denetimi |
-| [CHANGELOG.md](CHANGELOG.md) | Sürüme göre teknik değişikliklerin özeti |
-| [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Katılımcılar için davranış kuralları |
-| [Swagger/README.md](Swagger/README.md) | OpenAPI belgelerinin yapısı ve doğrulama yöntemi |
-| [Postman/README.md](Postman/README.md) | Postman koleksiyonunun güvenli kullanımı |
+## Lisans
 
-Kaynak kod GNU General Public License v3.0 kapsamında sunulur. Tam lisans metni [LICENSE](LICENSE) dosyasındadır. Katkı gönderen kişiler, katkılarının aynı lisans kapsamında kullanılmasını kabul eder.
+Kaynak kod [GNU General Public License v3.0](LICENSE) kapsamında sunulur. Paket tanımlarında aynı lisansın SPDX karşılığı olan `GPL-3.0-only` ifadesi kullanılır.
