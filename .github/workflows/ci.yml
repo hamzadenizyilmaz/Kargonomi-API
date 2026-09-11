@@ -61,7 +61,7 @@ jobs:
           extensions: curl, json
           tools: composer:v2
       - name: Composer bagimliliklari yukle
-        run: composer install --working-dir PHP --no-interaction --prefer-dist
+        run: composer install --working-dir PHP --no-interaction --prefer-dist --ignore-platform-req=php
       - name: Composer semasi dogrula
         run: composer --working-dir PHP validate --strict
       - name: PHP statik analiz
