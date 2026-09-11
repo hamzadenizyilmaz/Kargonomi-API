@@ -1,0 +1,46 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "bagimlilıklar"
+      - "github-actions"
+
+  - package-ecosystem: "npm"
+    directory: "/NodeJS"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "bagimlilıklar"
+      - "nodejs"
+
+  - package-ecosystem: "composer"
+    directory: "/PHP"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "bagimlilıklar"
+      - "php"
+
+  - package-ecosystem: "pip"
+    directory: "/Python"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "bagimlilıklar"
+      - "python"
+
+  - package-ecosystem: "nuget"
+    directory: "/ASP.net"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "bagimlilıklar"
+      - "dotnet"
